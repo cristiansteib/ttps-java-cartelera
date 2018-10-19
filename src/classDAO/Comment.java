@@ -7,15 +7,7 @@ public class Comment implements Serializable {
     String text;
     Timestamp creationDate;
     User user;
-    Publication publication;
 
-    public Publication getPublication() {
-        return publication;
-    }
-
-    public void setPublication(Publication publication) {
-        this.publication = publication;
-    }
 
     public String getText() {
         return text;
