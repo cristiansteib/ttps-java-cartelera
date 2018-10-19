@@ -8,8 +8,17 @@ public class Billboard implements Serializable {
     private String title;
     private String description;
     private Timestamp creationDate;
+    private Timestamp publishDate;
     private User user;
     private ArrayList<User> managedBy;
+
+    public Timestamp getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Timestamp publishDate) {
+        this.publishDate = publishDate;
+    }
 
     public User getUser() {
         return user;
