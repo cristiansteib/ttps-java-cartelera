@@ -9,6 +9,11 @@ public class User implements Serializable {
     private String password;
     private String DNI;
     private Notification notification;
+    private Boolean isAdmin;
+
+    public Boolean getAdmin() { return isAdmin; }
+
+    public void setAdmin(Boolean admin) { this.isAdmin = admin; }
 
     public String getName() {
         return name;
@@ -34,9 +39,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getDNI() {
-        return DNI;
-    }
+    public String getDNI() { return DNI; }
 
     public void setDNI(String DNI) {
         this.DNI = DNI;
