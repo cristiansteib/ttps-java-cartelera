@@ -2,6 +2,8 @@ package classDAO;
 
 public interface DAO<Type, ID> {
 
-    public Type find(Class <Type> typo,ID id);
+    Type find(Class <Type> typo,ID id);
+
+    void create (Type entity);
 
 }

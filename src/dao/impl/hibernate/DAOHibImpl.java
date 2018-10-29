@@ -5,6 +5,7 @@ import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.lang.reflect.ParameterizedType;
 
@@ -17,6 +18,14 @@ abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
     @Override
     public T find(Class <T> typo,ID id) {
         return this.em.find(typo, id);
+    }
+
+    @Override
+    public void create(T entity) {
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        this.em.persist(entity);
+        etx.commit();
     }
 
 }

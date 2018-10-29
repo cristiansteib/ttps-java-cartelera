@@ -1,5 +1,16 @@
 package classDAO;
 
+import entities.Billboard;
 import entities.User;
 
-public interface UserDAO extends DAO<User, Integer> { }
+import java.util.Collection;
+
+public interface UserDAO extends DAO<User, Integer> {
+
+    Collection<Billboard> getBillboards();
+
+
+
+
+
+}

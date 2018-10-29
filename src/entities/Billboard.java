@@ -11,6 +11,16 @@ public class Billboard implements Serializable {
     private Timestamp publishDate;
     private User user;
     private ArrayList<User> managedBy;
+    private ArrayList<Publication> publications;
+
+
+    public ArrayList<Publication> getPublications() {
+        return publications;
+    }
+
+    public void setPublications(ArrayList<Publication> publications) {
+        this.publications = publications;
+    }
 
     public Timestamp getPublishDate() {
         return publishDate;
