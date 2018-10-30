@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -17,8 +14,12 @@ public class User implements Serializable {
     private String lastName;
     private String password;
     private String DNI;
+
+    @OneToOne (cascade = CascadeType.PERSIST)
     private Notification notification;
     private Boolean isAdmin;
+
+    public Integer getId() {   return id;    }
 
     public Boolean getAdmin() { return isAdmin; }
 

@@ -6,4 +6,8 @@ public interface DAO<Type, ID> {
 
     void create (Type entity);
 
+    Type update (Type entity);
+
+    void remove (Type entity);
+
 }

@@ -1,12 +1,26 @@
 package entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 public class Notification implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String facebook;
     private String email;
     private String phoneNumber;
+
+    @Override
+    public String toString() {
+        return "face: "+this.facebook + " - mail: "+this.email+" - phone: "+this.phoneNumber;
+    }
 
     public String getFacebook() {
         return facebook;

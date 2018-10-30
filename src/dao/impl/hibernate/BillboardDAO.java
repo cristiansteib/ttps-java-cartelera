@@ -12,19 +12,19 @@ public class BillboardDAO {
 
     public void removePublication(Publication publication){   }
 
-    public Collection<User> listSuscriptors () {    }
+    //public Collection<User> listSuscriptors () {    }
 
-    public static Collection<User> listSuscriptorsFor(Billboard billboard) {   }
+   // public static Collection<User> listSuscriptorsFor(Billboard billboard) {   }
 
     public void addSuscriptor(User user) {   }
 
     public void removeSuscriptor(User user) {    }
 
-    public void allowEditionFor (User user) {    }
+    public void allowEditionTo (User user) {    }
 
-    public boolean canPublicate (Billboard billboard) {    }
+    //public boolean canPublicate (Billboard billboard) {    }
 
-    public Collection<Billboard> getNotYetPublished() {    }
+    //public Collection<Billboard> getNotYetPublished() {    }
 
 
 
