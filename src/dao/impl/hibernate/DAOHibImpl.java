@@ -13,16 +13,17 @@ abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("unit");
     EntityManager em = emf.createEntityManager();
+    EntityTransaction etx = em.getTransaction();
 
 
     @Override
-    public T find(Class <T> typo,ID id) {
+    public T getById(Class <T> typo,ID id) {
         return this.em.find(typo, id);
     }
 
     @Override
     public void create(T entity) {
-        EntityTransaction etx = em.getTransaction();
+
         etx.begin();
         this.em.persist(entity);
         etx.commit();

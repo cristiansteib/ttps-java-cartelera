@@ -1,6 +1,6 @@
 package main.webapp;
 
-import dao.impl.hibernate.UserDAOHibImpl;
+import dao.impl.hibernate.UserDAO;
 import entities.User;
 
 public class Main {
@@ -9,11 +9,10 @@ public class Main {
 
         User u = new User();
         u.setName("Juan");
-        u.setLastName("Garcia");
-
-        UserDAOHibImpl dao = new UserDAOHibImpl();
-        dao.create(u);
-        User usuario = dao.find(User.class,3);
+        u.setLastName("Gasd");
+        UserDAO dao = new UserDAO();
+        //dao.create(u);
+        User usuario = dao.getById(User.class,3);
         System.out.println("el usuario es:" + usuario.getName());
 
     }

@@ -2,7 +2,7 @@ package classDAO;
 
 public interface DAO<Type, ID> {
 
-    Type find(Class <Type> typo,ID id);
+    Type getById(Class <Type> typo,ID id);
 
     void create (Type entity);
 
