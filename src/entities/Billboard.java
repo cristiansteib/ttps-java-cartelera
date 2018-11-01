@@ -1,18 +1,33 @@
 package entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+
+@Entity
 public class Billboard implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String title;
     private String description;
     private Timestamp creationDate;
     private Timestamp publishDate;
-    private User user;
+
+    @ManyToMany
     private ArrayList<User> managedBy;
+
+    @OneToMany (cascade = CascadeType.PERSIST)
     private ArrayList<Publication> publications;
 
+    public Billboard(){
+        this.managedBy = new ArrayList<User>();
+        this.publications = new ArrayList<Publication>();
+    }
 
     public ArrayList<Publication> getPublications() {
         return publications;
@@ -28,14 +43,6 @@ public class Billboard implements Serializable {
 
     public void setPublishDate(Timestamp publishDate) {
         this.publishDate = publishDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public ArrayList<User> getManagedBy() {

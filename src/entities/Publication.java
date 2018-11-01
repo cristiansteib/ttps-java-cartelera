@@ -1,18 +1,28 @@
 package entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+@Entity
 public class Publication implements Serializable {
 
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @OneToOne
     private User owner;
+
     private String title;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private Timestamp publishDate;
     private String content;
     private boolean allowComments;
+
+    @OneToMany
     private ArrayList<Comment> comments;
 
     public User getOwner() {

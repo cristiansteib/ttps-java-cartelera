@@ -1,12 +1,21 @@
 package entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Entity
 public class Comment implements Serializable {
-    String text;
-    Timestamp creationDate;
-    User user;
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String text;
+    private Timestamp creationDate;
+
+    @OneToOne
+    private User owner;
 
 
     public String getText() {
@@ -26,10 +35,10 @@ public class Comment implements Serializable {
     }
 
     public User getUser() {
-        return user;
+        return owner;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.owner = user;
     }
 }
