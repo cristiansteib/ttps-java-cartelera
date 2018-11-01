@@ -16,22 +16,21 @@ abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
 
     abstract public Class<T> getModelClass();
 
-    @Override
     public T getById(Class <T> typo,ID id) {
         return this.em.find(typo, id);
     }
 
     public List<T> findAll (Class <T> clazz) {
+        System.out.println("pritddsg");
         return em.createQuery("SELECT e FROM "+ clazz.getName()+" e").getResultList();
     }
 
-    @Override
     public void create(T entity) {
         etx.begin();
         this.em.persist(entity);
         etx.commit();
     }
-    @Override
+
     public T update(T entity) {
         etx.begin();
         this.em.merge(entity);
@@ -39,7 +38,6 @@ abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
         return entity;
     }
 
-    @Override
     public void remove(T entity) {
         etx.begin();
         this.em.remove(entity);
