@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity
@@ -19,16 +20,16 @@ public class Billboard implements Serializable {
     private Timestamp publishDate;
 
     @ManyToMany
-    private ArrayList<User> managedBy;
+    private Collection<User> managedBy;
 
     @OneToMany (cascade = CascadeType.PERSIST)
-    private ArrayList<Publication> publications;
+    private Collection<Publication> publications;
 
-    public ArrayList<Publication> getPublications() {
+    public Collection<Publication> getPublications() {
         return publications;
     }
 
-    public void setPublications(ArrayList<Publication> publications) {
+    public void setPublications(Collection<Publication> publications) {
         this.publications = publications;
     }
 
@@ -40,11 +41,11 @@ public class Billboard implements Serializable {
         this.publishDate = publishDate;
     }
 
-    public ArrayList<User> getManagedBy() {
+    public Collection<User> getManagedBy() {
         return managedBy;
     }
 
-    public void setManagedBy(ArrayList<User> managedBy) {
+    public void setManagedBy(Collection<User> managedBy) {
         this.managedBy = managedBy;
     }
 
