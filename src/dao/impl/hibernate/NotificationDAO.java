@@ -5,7 +5,7 @@ import entities.Notification;
 public class NotificationDAO extends DAOHibernateImplementation<Notification, Integer> {
 
     @Override
-    public Class<Notification> getModelClass() {
-        return Notification.class;
+    String getModelName() {
+        return "Notification";
     }
 }

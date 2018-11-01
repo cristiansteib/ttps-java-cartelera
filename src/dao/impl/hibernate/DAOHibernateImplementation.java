@@ -14,6 +14,8 @@ abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
     EntityManager em;
     EntityTransaction etx;
 
+    abstract String getModelName();
+
     DAOHibernateImplementation() {
         DBconnection db = DBconnection.getConnection();
         emf = db.emf;
@@ -21,15 +23,12 @@ abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
         etx = db.etx;
     }
 
-    abstract public Class<T> getModelClass();
-
     public T getById(Class <T> typo,ID id) {
         return this.em.find(typo, id);
     }
 
-    public List<T> findAll (Class <T> clazz) {
-        System.out.println("pritddsg");
-        return em.createQuery("SELECT e FROM "+ clazz.getName()+" e").getResultList();
+    public List<T> findAll () {
+        return em.createQuery("SELECT e FROM "+ this.getModelName() + " e").getResultList();
     }
 
     public void create(T entity) {
