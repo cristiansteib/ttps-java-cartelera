@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
+abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
     DBconnection db;
     EntityManagerFactory emf;
     EntityManager em;
     EntityTransaction etx;
 
-    DAOHibImpl() {
+    DAOHibernateImplementation() {
         DBconnection db = DBconnection.getConnection();
         emf = db.emf;
         em = db.em;
