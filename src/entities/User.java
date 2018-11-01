@@ -17,6 +17,7 @@ public class User implements Serializable {
 
     @OneToOne (cascade = CascadeType.PERSIST)
     private Notification notification;
+
     private Boolean isAdmin;
 
     public Integer getId() {   return id;    }

@@ -1,10 +1,21 @@
 package entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Subscription implements Serializable {
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @OneToOne
     private User user;
+
+    @ManyToOne
     private Billboard billboard;
+
     private boolean facebook;
     private boolean email;
     private boolean sms;

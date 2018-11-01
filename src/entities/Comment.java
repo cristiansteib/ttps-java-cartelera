@@ -12,11 +12,11 @@ public class Comment implements Serializable {
     private Integer id;
 
     private String text;
+
     private Timestamp creationDate;
 
     @OneToOne
     private User owner;
-
 
     public String getText() {
         return text;

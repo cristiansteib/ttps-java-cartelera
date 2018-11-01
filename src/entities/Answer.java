@@ -1,11 +1,19 @@
 package entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 public class Answer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Integer id;
 
     private String answer;
     private Timestamp creationDate;
+
+    @ManyToOne
     private User owner;
 
     public String getAnswer() {

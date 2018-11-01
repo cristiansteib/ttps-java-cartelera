@@ -24,11 +24,6 @@ public class Billboard implements Serializable {
     @OneToMany (cascade = CascadeType.PERSIST)
     private ArrayList<Publication> publications;
 
-    public Billboard(){
-        this.managedBy = new ArrayList<User>();
-        this.publications = new ArrayList<Publication>();
-    }
-
     public ArrayList<Publication> getPublications() {
         return publications;
     }
