@@ -13,15 +13,12 @@ class DBconnection {
     EntityTransaction etx;
 
     static DBconnection getConnection() {
-
         if (connection == null) {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("unit");
-            EntityManager em = emf.createEntityManager();
-            EntityTransaction etx = em.getTransaction();
             connection = new DBconnection();
-            System.out.println("Create DB Connection");
+            connection.emf = Persistence.createEntityManagerFactory("unit");
+            connection.em = connection.emf.createEntityManager();
+            connection.etx = connection.em.getTransaction();
         }
         return connection;
     }
-
 }
