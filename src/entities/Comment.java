@@ -15,6 +15,9 @@ public class Comment implements Serializable {
 
     private Timestamp creationDate;
 
+    @ManyToOne
+    private Publication publication;
+
     @OneToOne
     private User owner;
 

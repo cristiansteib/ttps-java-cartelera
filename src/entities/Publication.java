@@ -1,9 +1,11 @@
 package entities;
 
+import org.hibernate.mapping.Collection;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 public class Publication implements Serializable {
@@ -22,8 +24,8 @@ public class Publication implements Serializable {
     private String content;
     private boolean allowComments;
 
-    @OneToMany
-    private ArrayList<Comment> comments;
+    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
+    private Set<Comment> comments;
 
     public User getOwner() {
         return owner;
@@ -81,11 +83,11 @@ public class Publication implements Serializable {
         this.allowComments = allowComments;
     }
 
-    public ArrayList<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
