@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +13,9 @@ public class Notification implements Serializable {
     private String facebook;
     private String email;
     private String phoneNumber;
+
+    @OneToOne(mappedBy = "notification")
+    private User user;
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ public class User implements Serializable {
     private String password;
     private String DNI;
 
-    @OneToOne (cascade = CascadeType.PERSIST)
+    @OneToOne (cascade = CascadeType.PERSIST, optional = true)
     private Notification notification;
 
     private Boolean isAdmin;
