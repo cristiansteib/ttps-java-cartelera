@@ -22,7 +22,7 @@ public class UserDAOTest {
         //for (User x : userdao.findAll()){
             //System.out.println(x.getNotification());
         //}
-}
+    }
 
     @After
     public void tearDown() throws Exception {

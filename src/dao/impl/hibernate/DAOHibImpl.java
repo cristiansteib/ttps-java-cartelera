@@ -9,10 +9,17 @@ import java.util.Collection;
 import java.util.List;
 
 abstract public class DAOHibImpl<T, ID> implements DAO<T, ID> {
+    DBconnection db;
+    EntityManagerFactory emf;
+    EntityManager em;
+    EntityTransaction etx;
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("unit");
-    EntityManager em = emf.createEntityManager();
-    EntityTransaction etx = em.getTransaction();
+    DAOHibImpl() {
+        DBconnection db = DBconnection.getConnection();
+        emf = db.emf;
+        em = db.em;
+        etx = db.etx;
+    }
 
     abstract public Class<T> getModelClass();
 
