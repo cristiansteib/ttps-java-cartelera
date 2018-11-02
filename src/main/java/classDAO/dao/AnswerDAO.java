@@ -1,6 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Answer;
+import main.java.entities.Answer;
 
 public class AnswerDAO extends DAOHibernateImplementation<Answer,Integer> {
 

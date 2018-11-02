@@ -1,6 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Comment;
+import main.java.entities.Comment;
 
 public class CommentDAO extends DAOHibernateImplementation<Comment, Integer> {
 

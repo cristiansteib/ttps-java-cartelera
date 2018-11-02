@@ -1,9 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Comment;
-import entities.Publication;
-
-import java.util.Collection;
+import main.java.entities.Comment;
 
 public class PublicationDAO {
     public void addComment(Comment comment){

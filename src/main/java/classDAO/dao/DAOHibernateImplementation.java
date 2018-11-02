@@ -1,11 +1,7 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import classDAO.DAO;
-import entities.User;
-import org.hibernate.Query;
+import main.java.classDAO.DAO;
 
-import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {

@@ -1,6 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Subscription;
+import main.java.entities.Subscription;
 
 public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, Integer> {
 

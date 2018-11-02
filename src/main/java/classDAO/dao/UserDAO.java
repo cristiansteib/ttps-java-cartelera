@@ -1,8 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.User;
-
-import java.util.List;
+import main.java.entities.User;
 
 public class UserDAO extends DAOHibernateImplementation<User, Integer> {
 

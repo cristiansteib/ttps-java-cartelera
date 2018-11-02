@@ -1,11 +1,8 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Billboard;
-import entities.Publication;
-import entities.User;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.Collection;
+import main.java.entities.Billboard;
+import main.java.entities.Publication;
+import main.java.entities.User;
 
 public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer> {
 

@@ -1,6 +1,6 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Notification;
+import main.java.entities.Notification;
 
 public class NotificationDAO extends DAOHibernateImplementation<Notification, Integer> {
 
