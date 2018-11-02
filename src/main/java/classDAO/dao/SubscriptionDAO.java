@@ -12,7 +12,7 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
         return "Subscription";
     }
 
-    public boolean addSubscriptor (Billboard billboard, User user, boolean facebook, boolean email, boolean sms){
+    public boolean addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {
         Subscription suscription = new Subscription();
         suscription.setUser(user);
         suscription.setBillboard(billboard);
@@ -23,8 +23,8 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
         return true;
     }
 
-    public boolean addSubscriptor (Billboard billboard, User user){
-        return this.addSubscriptor(billboard, user,false, false, false);
+    public boolean addSubscriber(Billboard billboard, User user) {
+        return this.addSubscriber(billboard, user, false, false, false);
     }
 
 }

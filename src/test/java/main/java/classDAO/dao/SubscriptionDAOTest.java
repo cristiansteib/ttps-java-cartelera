@@ -23,18 +23,32 @@ public class SubscriptionDAOTest {
     }
 
     @Test
-    public void addSubscriptor() {
+    public void addSubscriber() {
         User user = new User();
         Billboard billboard = new Billboard();
-        assertTrue(this.subscriptionDAO.addSubscriptor(billboard, user));
+        assertTrue(this.subscriptionDAO.addSubscriber(billboard, user));
     }
 
     @Test
-    public void addSubscriptorWithParams() {
+    public void addSubscriberWithParams() {
         User user = new User();
         Billboard billboard = new Billboard();
-        assertTrue(this.subscriptionDAO.addSubscriptor(billboard, user, true, false, true));
+        assertTrue(this.subscriptionDAO.addSubscriber(billboard, user, true, false, true));
     }
 
+    @Test
+    public void removeSubscriber() {
+        User user = new User();
+        Billboard billboard = new Billboard();
+        this.subscriptionDAO.addSubscriber(billboard, user);
+        assertTrue(this.subscriptionDAO.removeSubscriber(billboard, user));
+    }
+
+    @Test
+    public void removeSubscriberThatDontExists() {
+        User user = new User();
+        Billboard billboard = new Billboard();
+        assertTrue(this.subscriptionDAO.removeSubscriber(billboard, user));
+    }
 
 }
