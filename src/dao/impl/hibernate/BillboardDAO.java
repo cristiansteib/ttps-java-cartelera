@@ -14,11 +14,12 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
         return "Billboard";
     }
 
-    public boolean addPublication(Billboard billboard,Publication publication, User who) {
+    public boolean addPublication(Billboard billboard, Publication publication, User who) {
         throw new NotImplementedException();
     }
 
-    public void removePublication(Publication publication, User who) {
+    public boolean removePublication(Billboard billboard, Publication publication, User who) {
+        throw new NotImplementedException();
     }
 
     //public Collection<User> listSuscriptors () {    }
