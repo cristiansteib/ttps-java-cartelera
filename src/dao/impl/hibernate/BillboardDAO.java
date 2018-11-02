@@ -15,7 +15,12 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
     }
 
     public boolean addPublication(Billboard billboard, Publication publication, User who) {
-        throw new NotImplementedException();
+        if (billboard.getManagedBy().contains(who)){
+            billboard.addPublication(publication);
+            this.update(billboard);
+            return true;
+        };
+        return false;
     }
 
     public boolean removePublication(Billboard billboard, Publication publication, User who) {
@@ -35,8 +40,6 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
     public void allowEditionTo(User user) {
     }
 
-
-    //public boolean canPublicate (Billboard billboard) {    }
 
     //public Collection<Billboard> getNotYetPublished() {    }
 

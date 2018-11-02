@@ -19,19 +19,23 @@ public class Billboard implements Serializable {
     private Timestamp creationDate;
     private Timestamp publishDate;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<User> managedBy;
 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Publication> publications;
 
-    public Billboard(){
+    public Billboard() {
         this.managedBy = new ArrayList<User>();
         this.publications = new ArrayList<Publication>();
     }
 
     public Collection<Publication> getPublications() {
         return publications;
+    }
+
+    public void addPublication(Publication publication) {
+        this.publications.add(publication);
     }
 
     public void setPublications(Collection<Publication> publications) {
