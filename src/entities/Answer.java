@@ -15,7 +15,7 @@ public class Answer {
     @OneToOne
     private Comment comment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User owner;
 
     public String getAnswer() {

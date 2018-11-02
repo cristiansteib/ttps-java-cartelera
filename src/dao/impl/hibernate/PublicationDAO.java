@@ -6,10 +6,9 @@ import entities.Publication;
 import java.util.Collection;
 
 public class PublicationDAO {
-    public void addComment(Comment comment){    }
+    public void addComment(Comment comment){
+    }
 
     public void removeComment(Comment comment){   }
-
-
 
 }
