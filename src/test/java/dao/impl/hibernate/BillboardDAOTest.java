@@ -85,6 +85,7 @@ public class BillboardDAOTest {
         Publication publication = new Publication();
         publication.setTitle("Publicacion");
         publication.setContent("content");
+
         publication.setOwner(admin);
 
         User alumn = new User();
