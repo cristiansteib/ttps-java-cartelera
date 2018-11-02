@@ -70,7 +70,6 @@ public class BillboardDAOTest {
         User alumn = new User();
         alumn.setName("admin");
         alumn.setLastName("admin");
-        alumn.setAdmin(true);
 
         assertFalse(this.billboadDao.addPublication(this.billboard, publication, alumn));
     }
@@ -91,7 +90,6 @@ public class BillboardDAOTest {
         User alumn = new User();
         alumn.setName("admin");
         alumn.setLastName("admin");
-        alumn.setAdmin(true);
 
         assertFalse(this.billboadDao.removePublication(this.billboard, publication, alumn));
     }
