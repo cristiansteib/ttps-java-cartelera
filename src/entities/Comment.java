@@ -18,7 +18,7 @@ public class Comment implements Serializable {
     @ManyToOne
     private Publication publication;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User owner;
 
     public String getText() {

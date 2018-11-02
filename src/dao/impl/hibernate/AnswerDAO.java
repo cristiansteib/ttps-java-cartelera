@@ -1,4 +1,11 @@
 package dao.impl.hibernate;
 
-public class AnswerDAO {
+import entities.Answer;
+
+public class AnswerDAO extends DAOHibernateImplementation<Answer,Integer> {
+
+    @Override
+    String getModelName() {
+        return "Answer";
+    }
 }
