@@ -7,17 +7,28 @@ import java.sql.Timestamp;
 public class Answer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String answer;
     private Timestamp creationDate;
+
+    @OneToOne
+    private Comment comment;
 
     @ManyToOne
     private User owner;
 
     public String getAnswer() {
         return answer;
+    }
+
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public void setAnswer(String answer) {
