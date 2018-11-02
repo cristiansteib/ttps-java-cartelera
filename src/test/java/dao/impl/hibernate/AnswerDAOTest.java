@@ -11,10 +11,11 @@ public class AnswerDAOTest {
 
     @Before
     public void setUp() throws Exception {
+
         User u = new User();
-        u.setName("usuario1");
+        u.setName("uu");
         User u2 = new User();
-        u2.setName("usuario2");
+        u2.setName("uu2");
 
         Comment c = new Comment();
         c.setUser(u);
@@ -26,16 +27,19 @@ public class AnswerDAOTest {
         a.setOwner(u2);
 
         Publication p = new Publication();
-        p.setContent("contenido");
+        p.setContent("contenidoooo");
 
         Billboard b = new Billboard();
         b.setDescription("cartelera de prueba");
         b.addManagedBy(u);
-        b.addManagedBy(u2);
 
-
+        Billboard b2 =  new Billboard();
         BillboardDAO billboardDAO = new BillboardDAO();
-        billboardDAO.create(b);
+        b2 = billboardDAO.getById(Billboard.class, 7);
+        b2.addPublication(p);
+        billboardDAO.create(b2);
+
+        /*
 
         PublicationDAO publicationDAO = new PublicationDAO();
         publicationDAO.addComment(c);
@@ -46,7 +50,16 @@ public class AnswerDAOTest {
         AnswerDAO answerDAO = new AnswerDAO();
         //answerDAO.create(a);
 
+        Subscription s = new Subscription();
+        s.setEmail(true);
 
+
+        SubscriptionDAO subscriptionDAO = new SubscriptionDAO();
+        subscriptionDAO.create(s);
+    */
+        /*******************/
+        //b.addPublication(p);
+        //billboardDAO.create(b);
     }
 
     @After
