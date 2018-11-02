@@ -30,7 +30,7 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
         return this.addSubscriber(billboard, user, false, false, false);
     }
 
-    private Subscription findSubscriptionByUserAndBillboard(Billboard b, User u) {
+    private Subscription findSubscriptionByUserAndBillboard(Billboard b, User u) throws Exception {
         Query query = this.db.em.createQuery(
                 "SELECT s FROM " + this.getModelName() +" s " +
                 "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
@@ -42,11 +42,12 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
     }
 
     public boolean removeSubscriber(Billboard billboard, User user) {
-        Subscription subscription = this.findSubscriptionByUserAndBillboard(billboard, user);
-        if (subscription != null) {
+        try {
+            Subscription subscription = this.findSubscriptionByUserAndBillboard(billboard, user);
             this.remove(subscription);
             return true;
-        }else
+        } catch (Exception e) {
             return false;
+        }
     }
 }
