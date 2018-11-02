@@ -29,5 +29,12 @@ public class SubscriptionDAOTest {
         assertTrue(this.subscriptionDAO.addSubscriptor(billboard, user));
     }
 
+    @Test
+    public void addSubscriptorWithParams() {
+        User user = new User();
+        Billboard billboard = new Billboard();
+        assertTrue(this.subscriptionDAO.addSubscriptor(billboard, user, true, false, true));
+    }
+
 
 }

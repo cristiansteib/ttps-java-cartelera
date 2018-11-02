@@ -2,6 +2,7 @@ package main.java.classDAO.dao;
 
 import main.java.entities.Billboard;
 import main.java.entities.Publication;
+import main.java.entities.Subscription;
 import main.java.entities.User;
 
 public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer> {
@@ -37,8 +38,6 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
 
     // public static Collection<User> listSuscriptorsFor(Billboard billboard) {   }
 
-    public void addSuscriptor(User user) {
-    }
 
     public void removeSuscriptor(User user) {
     }

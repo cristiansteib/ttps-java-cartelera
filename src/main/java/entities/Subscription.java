@@ -1,5 +1,7 @@
 package main.java.entities;
 
+import main.java.classDAO.dao.SubscriptionDAO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,10 +12,10 @@ public class Subscription implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Billboard billboard;
 
     private boolean facebook;
@@ -59,4 +61,7 @@ public class Subscription implements Serializable {
     public void setSms(boolean sms) {
         this.sms = sms;
     }
+
+
+
 }
