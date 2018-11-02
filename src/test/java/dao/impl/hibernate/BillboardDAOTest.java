@@ -73,6 +73,27 @@ public class BillboardDAOTest {
         alumn.setAdmin(true);
 
         assertFalse(this.billboadDao.addPublication(this.billboard, publication, alumn));
-
     }
+
+    @Test
+    public void alumnUserCanNotDeletePublication() {
+        User admin = new User();
+        admin.setName("admin");
+        admin.setLastName("admin");
+        admin.setAdmin(true);
+
+        Publication publication = new Publication();
+        publication.setTitle("Publicacion");
+        publication.setContent("content");
+        publication.setOwner(admin);
+
+        User alumn = new User();
+        alumn.setName("admin");
+        alumn.setLastName("admin");
+        alumn.setAdmin(true);
+
+        assertFalse(this.billboadDao.removePublication(this.billboard, publication, alumn));
+    }
+
+
 }
