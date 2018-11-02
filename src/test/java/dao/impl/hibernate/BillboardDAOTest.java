@@ -30,6 +30,7 @@ public class BillboardDAOTest {
         User professor = new User();
         professor.setName("Julio");
         professor.setLastName("Julio2");
+        this.billboard.addManagedBy(professor);
 
         Publication publication = new Publication();
         publication.setTitle("Publicacion");
@@ -37,7 +38,6 @@ public class BillboardDAOTest {
         publication.setOwner(professor);
 
         assertTrue(this.billboadDao.addPublication(this.billboard, publication, professor));
-
     }
 
     @Test

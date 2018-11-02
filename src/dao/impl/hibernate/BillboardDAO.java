@@ -15,7 +15,7 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
     }
 
     public boolean addPublication(Billboard billboard, Publication publication, User who) {
-        if (billboard.getManagedBy().contains(who)){
+        if (billboard.getManagedBy().contains(who) || who.getAdmin()){
             billboard.addPublication(publication);
             this.update(billboard);
             return true;
