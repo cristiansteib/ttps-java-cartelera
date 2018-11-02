@@ -14,7 +14,7 @@ public class Answer {
     private String answer;
     private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Comment comment;
 
     @ManyToOne(cascade = CascadeType.ALL)
