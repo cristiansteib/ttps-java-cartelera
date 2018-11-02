@@ -30,6 +30,10 @@ public class Billboard implements Serializable {
         this.publications = new ArrayList<Publication>();
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+
     public Collection<Publication> getPublications() {
         return publications;
     }

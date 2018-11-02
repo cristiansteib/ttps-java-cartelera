@@ -39,8 +39,7 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
     // public static Collection<User> listSuscriptorsFor(Billboard billboard) {   }
 
 
-    public void removeSuscriptor(User user) {
-    }
+
 
     public void allowEditionTo(User user) {
     }

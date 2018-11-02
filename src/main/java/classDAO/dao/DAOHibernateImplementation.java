@@ -5,7 +5,7 @@ import main.java.classDAO.DAO;
 import java.util.List;
 
 abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
-    private DBconnection db;
+    public DBconnection db;
 
     abstract String getModelName();
 
