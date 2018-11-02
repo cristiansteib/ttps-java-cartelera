@@ -15,18 +15,17 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
         return "Subscription";
     }
 
-    public boolean addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {
+    public Subscription addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {
         Subscription suscription = new Subscription();
         suscription.setUser(user);
         suscription.setBillboard(billboard);
         if (facebook) suscription.setFacebook(true);
         if (email) suscription.setEmail(true);
         if (sms) suscription.setSms(true);
-        this.update(suscription);
-        return true;
+        return this.update(suscription);
     }
 
-    public boolean addSubscriber(Billboard billboard, User user) {
+    public Subscription addSubscriber(Billboard billboard, User user) {
         return this.addSubscriber(billboard, user, false, false, false);
     }
 
@@ -35,9 +34,9 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
                 "SELECT s FROM " + this.getModelName() +" s " +
                 "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
         );
-        query.setParameter("userId",u.getId());
-        query.setParameter("billboardId",b.getId());
-        System.out.println(this.getModelName());
+        query = query.setParameter("userId",u.getId());
+        query = query.setParameter("billboardId",b.getId());
+
         return  (Subscription) query.getSingleResult();
     }
 

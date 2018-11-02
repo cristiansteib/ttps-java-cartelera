@@ -26,22 +26,26 @@ public class SubscriptionDAOTest {
     public void addSubscriber() {
         User user = new User();
         Billboard billboard = new Billboard();
-        assertTrue(this.subscriptionDAO.addSubscriber(billboard, user));
+        this.subscriptionDAO.addSubscriber(billboard, user);
     }
 
     @Test
     public void addSubscriberWithParams() {
         User user = new User();
         Billboard billboard = new Billboard();
-        assertTrue(this.subscriptionDAO.addSubscriber(billboard, user, true, false, true));
+        this.subscriptionDAO.addSubscriber(billboard, user, true, false, true);
     }
 
     @Test
     public void removeSubscriber() {
+        UserDAO userDAO = new UserDAO();
+
         User user = new User();
+
         Billboard billboard = new Billboard();
-        this.subscriptionDAO.addSubscriber(billboard, user);
-        assertTrue(this.subscriptionDAO.removeSubscriber(billboard, user));
+        Subscription subscription = this.subscriptionDAO.addSubscriber(billboard, user);
+
+        assertTrue(this.subscriptionDAO.removeSubscriber(subscription.getBillboard(), subscription.getUser()));
     }
 
     @Test

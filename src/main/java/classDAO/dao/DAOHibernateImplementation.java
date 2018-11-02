@@ -29,7 +29,7 @@ abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
 
     public T update(T entity) {
         this.db.etx.begin();
-        this.db.em.merge(entity);
+        entity = this.db.em.merge(entity);
         this.db.etx.commit();
         return entity;
     }
