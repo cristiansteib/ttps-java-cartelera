@@ -1,10 +1,9 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.User;
+import main.java.classDAO.dao.UserDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import entities.User;
 
 import static org.junit.Assert.*;
 

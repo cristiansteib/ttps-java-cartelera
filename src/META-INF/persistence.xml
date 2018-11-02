@@ -6,7 +6,7 @@
              version="2.1">
     <persistence-unit name="unit">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>entities.User</class>
+        <class>main.java.entities.User</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.url" value=" jdbc:mysql://localhost:3306/cartelera"/>

@@ -1,9 +1,8 @@
 package main.webapp;
 
-import dao.impl.hibernate.NotificationDAO;
-import dao.impl.hibernate.UserDAO;
-import entities.Notification;
-import entities.User;
+import main.java.classDAO.dao.UserDAO;
+import main.java.entities.Notification;
+import main.java.entities.User;
 
 
 
@@ -21,7 +20,7 @@ public class Main {
         u.setNotification(notif);
 
         UserDAO userdao = new UserDAO();
-        //userdao.create(u);
+        userdao.create(u);
         for (User x : userdao.findAll()){
             System.out.println(x.getNotification());
         }

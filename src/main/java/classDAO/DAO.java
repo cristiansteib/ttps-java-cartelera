@@ -1,4 +1,4 @@
-package classDAO;
+package main.java.classDAO;
 
 public interface DAO<Type, ID> {
 

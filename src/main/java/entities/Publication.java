@@ -1,6 +1,4 @@
-package entities;
-
-import org.hibernate.mapping.Collection;
+package main.java.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;

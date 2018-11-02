@@ -1,8 +1,9 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.Billboard;
-import entities.Publication;
-import entities.User;
+import main.java.classDAO.dao.BillboardDAO;
+import main.java.entities.Billboard;
+import main.java.entities.Publication;
+import main.java.entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

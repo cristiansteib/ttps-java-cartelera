@@ -1,11 +1,10 @@
-package dao.impl.hibernate;
+package main.java.classDAO.dao;
 
-import entities.*;
+import main.java.classDAO.dao.BillboardDAO;
+import main.java.entities.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class AnswerDAOTest {
 
