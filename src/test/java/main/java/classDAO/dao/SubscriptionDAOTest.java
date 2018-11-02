@@ -37,18 +37,6 @@ public class SubscriptionDAOTest {
     }
 
     @Test
-    public void removeSubscriber() {
-        UserDAO userDAO = new UserDAO();
-
-        User user = new User();
-
-        Billboard billboard = new Billboard();
-        Subscription subscription = this.subscriptionDAO.addSubscriber(billboard, user);
-
-        assertTrue(this.subscriptionDAO.removeSubscriber(subscription.getBillboard(), subscription.getUser()));
-    }
-
-    @Test
     public void removeSubscriberThatDontExists() {
         User user = new User();
         Billboard billboard = new Billboard();
