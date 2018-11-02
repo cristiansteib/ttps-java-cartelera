@@ -4,6 +4,8 @@ import main.java.entities.Billboard;
 import main.java.entities.Subscription;
 import main.java.entities.User;
 
+import javax.persistence.Query;
+
 
 public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, Integer> {
 
@@ -28,18 +30,21 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
         return this.addSubscriber(billboard, user, false, false, false);
     }
 
-    private Subscription findSuscriptionByUserAndBillboard(Billboard b, User u) {
-        return (Subscription) this.db.em.createQuery(
-                "SELECT s FROM Subscription s " +
-                        "WHERE s.billboard.id = :userId AND s.user.id= :billboardId")
-                .setParameter("userId", u.getId()).setParameter("billboardId", b.getId())
-                .getSingleResult();
+    private Subscription findSubscriptionByUserAndBillboard(Billboard b, User u) {
+        Query query = this.db.em.createQuery(
+                "SELECT s FROM " + this.getModelName() +" s " +
+                "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
+        );
+        query.setParameter("userId", u.getId());
+        query.setParameter("billboardId", b.getId());
+        System.out.println(this.getModelName());
+        return  (Subscription) query.getSingleResult();
     }
 
     public boolean removeSubscriber(Billboard billboard, User user) {
-        Subscription suscription = this.findSuscriptionByUserAndBillboard(billboard, user);
-        if (suscription != null) {
-            this.remove(suscription);
+        Subscription subscription = this.findSubscriptionByUserAndBillboard(billboard, user);
+        if (subscription != null) {
+            this.remove(subscription);
             return true;
         }else
             return false;
