@@ -35,8 +35,8 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
                 "SELECT s FROM " + this.getModelName() +" s " +
                 "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
         );
-        query.setParameter("userId", u.getId());
-        query.setParameter("billboardId", b.getId());
+        query.setParameter("userId",u.getId());
+        query.setParameter("billboardId",b.getId());
         System.out.println(this.getModelName());
         return  (Subscription) query.getSingleResult();
     }
@@ -47,6 +47,7 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
             this.remove(subscription);
             return true;
         } catch (Exception e) {
+            System.out.println("exploto " + e.toString());
             return false;
         }
     }
