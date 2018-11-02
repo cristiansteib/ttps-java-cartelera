@@ -30,6 +30,7 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
     }
 
     private Subscription findSubscriptionByUserAndBillboard(Billboard b, User u) throws Exception {
+        System.out.println("bill: "+b.getId() + " user: "+u.getId());
         Query query = this.db.em.createQuery(
                 "SELECT s FROM " + this.getModelName() +" s " +
                 "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
