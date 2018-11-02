@@ -48,7 +48,7 @@ public class SubscriptionDAOTest {
     public void removeSubscriberThatDontExists() {
         User user = new User();
         Billboard billboard = new Billboard();
-        assertTrue(this.subscriptionDAO.removeSubscriber(billboard, user));
+        assertFalse(this.subscriptionDAO.removeSubscriber(billboard, user));
     }
 
 }
