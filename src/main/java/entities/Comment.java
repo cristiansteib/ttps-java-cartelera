@@ -3,6 +3,7 @@ package main.java.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 public class Comment implements Serializable {
@@ -13,7 +14,7 @@ public class Comment implements Serializable {
 
     private String text;
 
-    private Timestamp creationDate;
+    private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
     @ManyToOne
     private Publication publication;

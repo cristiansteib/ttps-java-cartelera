@@ -89,5 +89,7 @@ public class Publication implements Serializable {
         this.comments = comments;
     }
 
-
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 }

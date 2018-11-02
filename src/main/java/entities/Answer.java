@@ -2,6 +2,8 @@ package main.java.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
+
 
 @Entity
 public class Answer {
@@ -10,7 +12,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String answer;
-    private Timestamp creationDate;
+    private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
     @OneToOne
     private Comment comment;
