@@ -1,6 +1,7 @@
 package main.java.classDAO.dao;
 
 import main.java.classDAO.dao.UserDAO;
+import main.java.entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,30 +13,23 @@ public class UserDAOTest {
 
     @Before
     public void setUp() throws Exception {
-
-        //User u = new User();
-        //u.setName("Juan");
-        //u.setLastName("Gasd");
-
         this.userdao = new UserDAO();
-        //userdao.create(u);
-        //for (User x : userdao.findAll()){
-            //System.out.println(x.getNotification());
-        //}
     }
 
     @After
     public void tearDown() throws Exception {
+
     }
 
     @Test
     public void addUser() {
+        User user = new User();
+        user.setName("pepe");
+        user.setLastName("ninguno");
+        user.setDNI("123123123");
+        user.setPassword("secret");
+        this.userdao.create(user);
         assertTrue(true);
     }
-
-    @Test
-    public void findAll() {
-        assertTrue(true);
-
-    }
+    
 }
