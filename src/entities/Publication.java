@@ -14,7 +14,7 @@ public class Publication implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User owner;
 
     private String title;
