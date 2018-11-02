@@ -8,9 +8,12 @@ import java.util.Collection;
 
 public class BillboardDAO {
 
-    public void addPublication(Publication publication){    }
+    public boolean addPublication(Publication publication, User who) {
 
-    public void removePublication(Publication publication){   }
+        return true;
+    }
+
+    public void removePublication(Publication publication, User who){   }
 
     //public Collection<User> listSuscriptors () {    }
 
