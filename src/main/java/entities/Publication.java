@@ -3,6 +3,8 @@ package main.java.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,11 @@ public class Publication implements Serializable {
     private boolean allowComments;
 
     @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
-    private Set<Comment> comments;
+    private Collection<Comment> comments;
+
+    public Publication (){
+        this.comments = new ArrayList<Comment>();
+    }
 
     public User getOwner() {
         return owner;
@@ -81,7 +87,7 @@ public class Publication implements Serializable {
         this.allowComments = allowComments;
     }
 
-    public Set<Comment> getComments() {
+    public Collection<Comment> getComments() {
         return comments;
     }
 
