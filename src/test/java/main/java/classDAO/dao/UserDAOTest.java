@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserDAOTest {
+    private UserDAO userdao;
 
     @Before
     public void setUp() throws Exception {
@@ -16,7 +17,7 @@ public class UserDAOTest {
         //u.setName("Juan");
         //u.setLastName("Gasd");
 
-        UserDAO userdao = new UserDAO();
+        this.userdao = new UserDAO();
         //userdao.create(u);
         //for (User x : userdao.findAll()){
             //System.out.println(x.getNotification());
@@ -28,7 +29,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void getModelClass() {
+    public void addUser() {
         assertTrue(true);
     }
 
