@@ -13,7 +13,6 @@ import java.util.Date;
 import static java.lang.System.currentTimeMillis;
 
 public class AnswerDAO extends DAOHibernateImplementation<Answer,Integer> {
-        AnswerDAO answerDAO = new AnswerDAO();
 
     @Override
     String getModelName() {

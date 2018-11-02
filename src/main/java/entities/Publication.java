@@ -90,6 +90,7 @@ public class Publication implements Serializable {
     }
 
     public void addComment(Comment comment) {
+        System.out.println(this.comments);
         this.comments.add(comment);
     }
 }

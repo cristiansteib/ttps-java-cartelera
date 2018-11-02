@@ -9,11 +9,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class AnswerDAOTest {
-    private AnswerDAO answerDAO = new AnswerDAO();
+    private AnswerDAO answerDAO;
 
     @Before
     public void setUp() throws Exception {
-
+        answerDAO = new AnswerDAO();
     }
 
     @After
