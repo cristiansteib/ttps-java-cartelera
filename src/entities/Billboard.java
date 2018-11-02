@@ -38,6 +38,10 @@ public class Billboard implements Serializable {
         this.publications.add(publication);
     }
 
+    public void removePublication(Publication publication) {
+        this.publications.remove(publication);
+    }
+
     public void setPublications(Collection<Publication> publications) {
         this.publications = publications;
     }

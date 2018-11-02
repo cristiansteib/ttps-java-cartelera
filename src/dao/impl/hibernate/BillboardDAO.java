@@ -14,8 +14,12 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
         return "Billboard";
     }
 
+    private static boolean canModify(Billboard billboard, User who) {
+        return (billboard.getManagedBy().contains(who) || who.getAdmin());
+    }
+
     public boolean addPublication(Billboard billboard, Publication publication, User who) {
-        if (billboard.getManagedBy().contains(who) || who.getAdmin()){
+        if ( canModify(billboard, who )){
             billboard.addPublication(publication);
             this.update(billboard);
             return true;
@@ -24,7 +28,12 @@ public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer>
     }
 
     public boolean removePublication(Billboard billboard, Publication publication, User who) {
-        throw new NotImplementedException();
+        if ( canModify(billboard, who )){
+            billboard.removePublication(publication);
+            this.update(billboard);
+            return true;
+        };
+        return false;
     }
 
     //public Collection<User> listSuscriptors () {    }
