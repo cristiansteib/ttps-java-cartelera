@@ -68,8 +68,9 @@ public class BillboardDAOTest {
         publication.setOwner(admin);
 
         User alumn = new User();
-        alumn.setName("admin");
-        alumn.setLastName("admin");
+        alumn.setName("alum");
+        alumn.setLastName("alum");
+        alumn.setAdmin(false);
 
         assertFalse(this.billboadDao.addPublication(this.billboard, publication, alumn));
     }
@@ -88,8 +89,9 @@ public class BillboardDAOTest {
         publication.setOwner(admin);
 
         User alumn = new User();
-        alumn.setName("admin");
-        alumn.setLastName("admin");
+        alumn.setName("alum");
+        alumn.setLastName("alum");
+        alumn.setAdmin(false);
 
         assertFalse(this.billboadDao.removePublication(this.billboard, publication, alumn));
     }
