@@ -31,22 +31,17 @@ abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
         return this.db.em.createQuery("SELECT e FROM " + this.getModelName() + " e").getResultList();
     }
 
-    public void create(T entity) {
-        this.db.etx.begin();
-        this.db.em.persist(entity);
-        this.db.etx.commit();
+    public T create(T entity) {
+        this.entityManager.persist(entity);
+        return entity;
     }
 
     public T update(T entity) {
-        this.db.etx.begin();
-        entity = this.db.em.merge(entity);
-        this.db.etx.commit();
+        this.entityManager.merge(entity);
         return entity;
     }
 
     public void remove(T entity) {
-        this.db.etx.begin();
-        this.db.em.remove(entity);
-        this.db.etx.commit();
+        this.entityManager.remove(entity);
     }
 }
