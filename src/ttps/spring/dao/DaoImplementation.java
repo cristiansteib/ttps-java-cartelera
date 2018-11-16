@@ -1,14 +1,26 @@
 package ttps.spring.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
-    public DBconnection db;
+    private EntityManager entityManager;
 
     abstract String getModelName();
 
     DAOHibernateImplementation() {
-        this.db = DBconnection.getConnection();
+    }
+
+    @PersistenceContext
+    public void setEntityManager(EntityManager em){
+        this.entityManager = em;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public T getById(Class<T> typo, ID id) {
