@@ -1,13 +1,14 @@
 package ttps.spring.dao;
 
+import ttps.spring.model.*;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
 
-public class BillboardDAO extends DAOHibernateImplementation<Billboard, Integer> {
-
-    @Override
-    String getModelName() {
-        return "Billboard";
-    }
+   public BillboardDAO(){
+       super(Billboard.class);
+   }
 
     private static boolean canModify(Billboard billboard, User who) {
         return (billboard.getManagedBy().contains(who) || who.getAdmin());

@@ -1,10 +1,12 @@
 package ttps.spring.dao;
 
+import ttps.spring.model.*;
+import org.springframework.stereotype.Repository;
 
-public class NotificationDAO extends DAOHibernateImplementation<Notification, Integer> {
+@Repository
+public class NotificationDAO extends DaoImplementation<Notification, Integer> {
 
-    @Override
-    String getModelName() {
-        return "Notification";
+    public NotificationDAO(){
+        super(Notification.class);
     }
 }
