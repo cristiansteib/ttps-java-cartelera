@@ -6,12 +6,17 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-abstract public class DAOHibernateImplementation<T, ID> implements DAO<T, ID> {
+public class DaoImplementation<T, ID> implements DAO<T, ID> {
     private EntityManager entityManager;
+    private Class<T> persistentClass;
 
-    abstract String getModelName();
 
-    DAOHibernateImplementation() {
+    public DaoImplementation(Class<T> persistentClass) {
+        this.setPersistentClass(persistentClass);
+    }
+
+    public void setPersistentClass(Class<T> persistentClass) {
+        this.persistentClass = persistentClass;
     }
 
     @PersistenceContext
