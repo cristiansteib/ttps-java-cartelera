@@ -1,14 +1,16 @@
 package ttps.spring.dao;
 
+import ttps.spring.model.Billboard;
+import ttps.spring.model.Subscription;
+import ttps.spring.model.User;
+
 import javax.persistence.Query;
 
 
-public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, Integer> {
+public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
 
-
-    @Override
-    String getModelName() {
-        return "Subscription";
+    public SubscriptionDAO() {
+        super(Subscription.class);
     }
 
     public Subscription addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {
@@ -27,8 +29,8 @@ public class SubscriptionDAO extends DAOHibernateImplementation<Subscription, In
 
     private Subscription findSubscriptionByUserAndBillboard(Billboard b, User u) throws Exception {
         System.out.println("bill: "+b.getId() + " user: "+u.getId());
-        Query query = this.db.em.createQuery(
-                "SELECT s FROM " + this.getModelName() +" s " +
+        Query query = this.getEntityManager().createQuery(
+                "SELECT s FROM " + this.getPersistentClass().getName() +" s " +
                 "WHERE s.billboard.id = :userId AND s.user.id= :billboardId"
         );
         query = query.setParameter("userId",u.getId());
