@@ -19,8 +19,12 @@ public class DaoImplementation<T, ID> implements DAO<T, ID> {
         this.persistentClass = persistentClass;
     }
 
+    public Class<T> getPersistentClass() {
+        return this.persistentClass;
+    }
+
     @PersistenceContext
-    public void setEntityManager(EntityManager em){
+    public void setEntityManager(EntityManager em) {
         this.entityManager = em;
     }
 
@@ -29,24 +33,27 @@ public class DaoImplementation<T, ID> implements DAO<T, ID> {
     }
 
     public T getById(Class<T> typo, ID id) {
-        return this.db.em.find(typo, id);
+        return this.getEntityManager().find(typo, id);
     }
 
     public List<T> findAll() {
-        return this.db.em.createQuery("SELECT e FROM " + this.getModelName() + " e").getResultList();
+        return this.getEntityManager().createQuery(
+                "SELECT e " +
+                        "FROM " + this.getPersistentClass().getName() + " e"
+        ).getResultList();
     }
 
     public T create(T entity) {
-        this.entityManager.persist(entity);
+        this.getEntityManager().persist(entity);
         return entity;
     }
 
     public T update(T entity) {
-        this.entityManager.merge(entity);
+        this.getEntityManager().merge(entity);
         return entity;
     }
 
     public void remove(T entity) {
-        this.entityManager.remove(entity);
+        this.getEntityManager().remove(entity);
     }
 }
