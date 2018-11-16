@@ -1,10 +1,12 @@
 package ttps.spring.dao;
 
+import ttps.spring.model.*;
+import org.springframework.stereotype.Repository;
 
-public class CommentDAO extends DAOHibernateImplementation<Comment, Integer> {
+@Repository
+public class CommentDAO extends DaoImplementation<Comment, Integer> {
 
-    @Override
-    String getModelName() {
-        return "Comment";
+    public CommentDAO(){
+        super(Comment.class);
     }
 }

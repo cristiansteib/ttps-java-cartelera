@@ -43,9 +43,8 @@ public class DaoImplementation<T, ID> implements DAO<T, ID> {
         ).getResultList();
     }
 
-    public T create(T entity) {
+    public void create(T entity) {
         this.getEntityManager().persist(entity);
-        return entity;
     }
 
     public T update(T entity) {

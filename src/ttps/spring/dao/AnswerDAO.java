@@ -1,10 +1,13 @@
 package ttps.spring.dao;
+import ttps.spring.model.*;
 
-public class AnswerDAO extends DAOHibernateImplementation<Answer,Integer> {
+import org.springframework.stereotype.Repository;
 
-    @Override
-    String getModelName() {
-        return "Answer";
+@Repository
+public class AnswerDAO extends DaoImplementation<Answer,Integer>{
+
+    public AnswerDAO() {
+        super(Answer.class);
     }
 
 

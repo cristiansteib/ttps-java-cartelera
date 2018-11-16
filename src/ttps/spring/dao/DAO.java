@@ -5,7 +5,7 @@ public interface DAO<Type, ID> {
 
     Type getById(Class <Type> typo,ID id);
 
-    Type create (Type entity);
+    void create (Type entity);
 
     Type update (Type entity);
 
