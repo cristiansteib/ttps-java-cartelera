@@ -1,25 +1,41 @@
 package ttps.spring.controllers.auth;
 
-import com.mysql.cj.xdevapi.JsonArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ttps.spring.dao.SessionDAO;
+import ttps.spring.dao.UserDAO;
+import ttps.spring.model.Session;
 import ttps.spring.model.User;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class AuthController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private SessionDAO sessionDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     @PostMapping("/auth/login")
-    public AuthResponse greeting(@RequestParam(value="username") String username,
-                              @RequestParam(value="password") String password) {
+    public AuthResponse greeting(@RequestParam(value = "username") String username,
+                                 @RequestParam(value = "password") String password) {
 
         AuthResponse authResponse = new AuthResponse();
+
+        User user = userDAO.login(username, password);
+
+        if (user != null) {
+            Session session = sessionDAO.buildNewSession(user);
+            sessionDAO.create(session);
+            authResponse.setMsg("Successful logged.");
+            authResponse.setStatus("ok");
+            authResponse.setToken(session.getToken());
+        } else {
+            authResponse.setMsg("Invalid credentials.");
+            authResponse.setStatus("error");
+        }
 
         return authResponse;
     }
