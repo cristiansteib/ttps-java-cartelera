@@ -20,7 +20,8 @@ public class UserController {
 
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-        if (!sessionDAO.isValidSession("dsafasdfsdaasdfsdaf")) {
+        if (!sessionDAO.isValidSession("tKloL80zfHbsH7EFCcvNHiJntaG8Ky")) {
+            System.out.println("invalid session token");
             throw new ForbiddenException();
         }
 
