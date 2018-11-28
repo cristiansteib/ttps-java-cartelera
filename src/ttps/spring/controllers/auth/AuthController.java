@@ -36,7 +36,6 @@ public class AuthController {
             authResponse.setMsg("Invalid credentials.");
             authResponse.setStatus("error");
         }
-
         return authResponse;
     }
 }

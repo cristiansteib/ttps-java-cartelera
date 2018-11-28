@@ -20,5 +20,11 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
         return session;
     }
 
+    public Boolean isValidSession(String token) {
+        this.getEntityManager().createQuery(
+                "SELECT e FROM " + Session.class + " where token = " + token
+        ).getResultList();
+        return true;
+    }
 }
 
