@@ -5,6 +5,9 @@ import ttps.spring.model.Session;
 import ttps.spring.model.User;
 import ttps.spring.utils.RandomString;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Repository
 public class SessionDAO extends DaoImplementation<Session, Integer> {
 
@@ -20,11 +23,12 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
         return session;
     }
 
+    @Transactional
     public Boolean isValidSession(String token) {
-        this.getEntityManager().createQuery(
-                "SELECT e FROM " + Session.class + " where token = " + token
+        List result = this.getEntityManager().createNativeQuery(
+                "SELECT * FROM Session where token = '" + token + "'"
         ).getResultList();
-        return true;
+        return (result.size() != 0);
     }
 }
 
