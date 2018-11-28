@@ -27,13 +27,9 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
     @Transactional
     public Boolean isValidSession(String token) {
         String queryString = "SELECT s FROM Session s where token = :token";
-
         TypedQuery<Session> query = getEntityManager().createQuery(queryString, Session.class);
-
         query.setParameter("token", token);
-
         List result = query.getResultList();
-
         return (result.size() != 0);
     }
 }
