@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.dao.UserDAO;
+import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.User;
 
 @RestController
@@ -20,7 +21,7 @@ public class UserController {
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
         if (!sessionDAO.isValidSession("dsafasdfsdaasdfsdaf")) {
-            System.out.println("invalid session");
+            throw new ForbiddenException();
         }
 
         User currentUser = userDao.getById(id);
