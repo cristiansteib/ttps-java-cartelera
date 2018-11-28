@@ -3,7 +3,9 @@ package ttps.spring.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 public class Session implements Serializable {
@@ -14,7 +16,7 @@ public class Session implements Serializable {
 
     private String token;
 
-    private Timestamp creationDate;
+    private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
     @ManyToOne (cascade = CascadeType.PERSIST, optional = true)
     private User user;
