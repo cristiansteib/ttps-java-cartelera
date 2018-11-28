@@ -19,9 +19,8 @@ public class UserController {
 
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-
         if (!sessionDAO.isValidSession("dsafasdfsdaasdfsdaf")) {
-            System.out.println("session invalida");
+            System.out.println("invalid session");
         }
 
         User currentUser = userDao.getById(id);
