@@ -1,4 +1,4 @@
-package ttps.spring.controllers;
+package ttps.spring.controllers.user;
 
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
