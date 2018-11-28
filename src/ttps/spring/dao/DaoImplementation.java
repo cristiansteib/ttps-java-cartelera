@@ -15,12 +15,6 @@ public abstract class DaoImplementation<T, ID> {
     private EntityManager entityManager;
     private Class<T> persistentClass;
 
-/*
-    public DaoImplementation(Class<T> persistentClass) {
-        this.setPersistentClass(persistentClass);
-    }
-*/
-
     public final void setPersistentClass(Class<T> persistentClass) {
         this.persistentClass = persistentClass;
     }
@@ -37,8 +31,8 @@ public abstract class DaoImplementation<T, ID> {
         return entityManager;
     }
 
-    public T getById(Class<T> typo, ID id) {
-        return this.getEntityManager().find(typo, id);
+    public T getById(ID id) {
+        return this.getEntityManager().find(this.getPersistentClass(), id);
     }
 
     public List<T> findAll() {

@@ -13,9 +13,9 @@ public class UserController {
     @Autowired
     private UserDAO userDao;
 
-    @PutMapping("/usuario/{id}")
+    @PutMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-        User currentUser = userDao.getById(User.class,id);
+        User currentUser = userDao.getById(id);
         currentUser.setName(user.getName());
         System.out.println("actualizando");
         userDao.update(currentUser);
