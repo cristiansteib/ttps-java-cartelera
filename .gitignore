@@ -4,3 +4,4 @@ target/*
 .idea/
 src/target/**
 lib/**
+.settings/**
