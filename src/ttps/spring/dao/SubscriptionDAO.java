@@ -1,16 +1,17 @@
 package ttps.spring.dao;
 
+import org.springframework.stereotype.Repository;
 import ttps.spring.model.Billboard;
 import ttps.spring.model.Subscription;
 import ttps.spring.model.User;
 
 import javax.persistence.Query;
 
-
+@Repository
 public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
 
     public SubscriptionDAO() {
-        super(Subscription.class);
+        setPersistentClass(Subscription.class);
     }
 
     public Subscription addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {

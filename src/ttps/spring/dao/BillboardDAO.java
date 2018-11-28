@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
 
    public BillboardDAO(){
-       super(Billboard.class);
+       setPersistentClass(Billboard.class);
    }
 
     private static boolean canModify(Billboard billboard, User who) {

@@ -1,33 +1,38 @@
 package ttps.spring.dao;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+
 @Transactional
-public class DaoImplementation<T, ID> implements DAO<T, ID> {
+public abstract class DaoImplementation<T, ID> {
+
+    @PersistenceContext
     private EntityManager entityManager;
     private Class<T> persistentClass;
 
-
+/*
     public DaoImplementation(Class<T> persistentClass) {
         this.setPersistentClass(persistentClass);
     }
+*/
 
-    public void setPersistentClass(Class<T> persistentClass) {
+    public final void setPersistentClass(Class<T> persistentClass) {
         this.persistentClass = persistentClass;
     }
 
     public Class<T> getPersistentClass() {
         return this.persistentClass;
     }
-
-    @PersistenceContext
+/*
     public void setEntityManager(EntityManager em) {
         this.entityManager = em;
     }
-
+*/
     public EntityManager getEntityManager() {
         return entityManager;
     }

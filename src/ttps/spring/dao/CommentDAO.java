@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public class CommentDAO extends DaoImplementation<Comment, Integer> {
 
     public CommentDAO(){
-        super(Comment.class);
+        setPersistentClass(Comment.class);
     }
 }

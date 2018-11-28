@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class AnswerDAO extends DaoImplementation<Answer,Integer>{
 
     public AnswerDAO() {
-        super(Answer.class);
+        setPersistentClass(Answer.class);
     }
 
 

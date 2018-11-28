@@ -1,21 +1,25 @@
 package ttps.spring.controllers.user;
 
-import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ttps.spring.dao.UserDAO;
 import ttps.spring.model.User;
 
 @RestController
 public class UserController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private UserDAO userDao;
 
-    @RequestMapping("/usuario")
-    public User greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        User user = new User();
-
-        return user;
+    @PutMapping("/usuario/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+        User currentUser = userDao.getById(User.class,id);
+        currentUser.setName(user.getName());
+        System.out.println("actualizando");
+        userDao.update(currentUser);
+        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
     }
+
 }

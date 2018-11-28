@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public class NotificationDAO extends DaoImplementation<Notification, Integer> {
 
     public NotificationDAO(){
-        super(Notification.class);
+        setPersistentClass(Notification.class);
     }
 }
