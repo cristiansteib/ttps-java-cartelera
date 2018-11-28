@@ -1,6 +1,7 @@
 package ttps.spring.utils;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
@@ -59,4 +60,8 @@ public class RandomString {
         this(21);
     }
 
+    @Override
+    public String toString() {
+        return this.nextString();
+    }
 }

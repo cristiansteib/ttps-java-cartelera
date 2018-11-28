@@ -13,7 +13,7 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
     }
 
     public Session buildNewSession(User user){
-        RandomString token = new RandomString(20);
+        RandomString token = new RandomString(30);
         Session session = new Session();
         session.setToken(token.toString());
         session.setUser(user);
