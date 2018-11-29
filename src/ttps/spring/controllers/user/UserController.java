@@ -35,9 +35,9 @@ public class UserController {
             currentUser.setName(user.getName());
             currentUser.setLastName(user.getLastName());
             currentUser.setDNI(user.getDNI());
-            currentUser.setAdmin(user.getAdmin());
             currentUser.setUserName(user.getUserName());
             currentUser.setPassword(user.getPassword());
+            currentUser.setAdmin(user.getAdmin());
             userDao.update(currentUser);
             return new ResponseEntity<User>(currentUser, HttpStatus.OK);
         }
@@ -68,9 +68,15 @@ public class UserController {
             throw new ForbiddenException();
         }
 
-        //TODO: falta chequear que no exista el usuario
-        userDao.create(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        boolean exist = userDao.userNameExist(user.getUserName());
+        if (exist){
+            return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
+        }
+        else{
+            userDao.create(user);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        }
+
 
     }
 
@@ -78,6 +84,22 @@ public class UserController {
     public ResponseEntity<List<User>> listUsers() {
         List<User> users = userDao.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/usuarios/{id}")
+    public ResponseEntity<User> updateUser(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "token") String sessionToken)
+    {
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+        User currentUser = userDao.getById(id);
+        if (currentUser != null){
+            userDao.remove(currentUser);
+            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 
 }

@@ -52,6 +52,6 @@ public abstract class DaoImplementation<T, ID> {
     }
 
     public void remove(T entity) {
-        this.getEntityManager().remove(entity);
+        this.entityManager.remove(this.entityManager.contains(entity) ? entity : this.entityManager.merge(entity));
     }
 }
