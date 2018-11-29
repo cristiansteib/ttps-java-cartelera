@@ -33,7 +33,7 @@ public class AuthController {
              * Create a session instance, then save in the DB
              * */
             Session session = sessionDAO.buildNewSession(user);
-            sessionDAO.create(session);
+            sessionDAO.update(session);
 
             authResponse.setMsg("Successful logged.");
             authResponse.setStatus("ok");
