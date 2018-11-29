@@ -1,9 +1,7 @@
 package ttps.spring.controllers.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.dao.UserDAO;
 import ttps.spring.model.Session;
@@ -19,11 +17,15 @@ public class AuthController {
     private UserDAO userDAO;
 
     @PostMapping("/auth/login")
-    public AuthResponse greeting(@RequestParam(value = "username") String username,
+    public AuthResponse login(@RequestParam(value = "username") String username,
                                  @RequestParam(value = "password") String password) {
+
 
         AuthResponse authResponse = new AuthResponse();
 
+        /*
+         Login the user, if the credentials are valid
+        */
         User user = userDAO.login(username, password);
 
         if (user != null) {
@@ -38,4 +40,14 @@ public class AuthController {
         }
         return authResponse;
     }
+
+    @GetMapping("/auth/logout")
+    public AuthResponse logout(@RequestParam(value = "token") String sessionToken) {
+        sessionDAO.revoke(sessionToken);
+        System.out.println("logged out");
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setStatus("ok");
+        return authResponse;
+    }
+
 }
