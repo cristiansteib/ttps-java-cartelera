@@ -3,6 +3,7 @@ package ttps.spring.controllers.auth;
 public class AuthResponse {
     private String token;
     private String msg;
+    private Integer userId;
     private String status;
 
     public String getToken() {
@@ -27,5 +28,13 @@ public class AuthResponse {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
