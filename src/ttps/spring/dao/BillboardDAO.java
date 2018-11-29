@@ -1,5 +1,6 @@
 package ttps.spring.dao;
 
+import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,19 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
    public BillboardDAO(){
        setPersistentClass(Billboard.class);
    }
+
+    public void addNewBillboard(User user, Billboard billboard) {
+
+       /*
+       * Only admins can add a new Billboard
+       * */
+        if (user.getAdmin()){
+            billboard.addManagedBy(user);
+            this.update(billboard);
+        } else {
+            throw new ForbiddenException();
+        }
+    }
 
     private static boolean canModify(Billboard billboard, User who) {
         return (billboard.getManagedBy().contains(who) || who.getAdmin());
