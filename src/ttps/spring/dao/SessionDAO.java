@@ -41,9 +41,13 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
         return this.getByToken(token) != null;
     }
 
-    public void revoke(String sessionToken) {
+    public Boolean revoke(String sessionToken) {
         Session session = this.getByToken(sessionToken);
-        this.remove(session);
+        if (session != null) {
+            this.remove(session);
+            return true;
+        }
+        return false;
     }
 }
 

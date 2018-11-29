@@ -44,9 +44,9 @@ public class AuthController {
     @GetMapping("/auth/logout")
     public AuthResponse logout(@RequestParam(value = "token") String sessionToken) {
         sessionDAO.revoke(sessionToken);
-        System.out.println("logged out");
         AuthResponse authResponse = new AuthResponse();
         authResponse.setStatus("ok");
+        authResponse.setMsg("Logged out.");
         return authResponse;
     }
 
