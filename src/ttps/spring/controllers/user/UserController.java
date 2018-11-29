@@ -68,9 +68,15 @@ public class UserController {
             throw new ForbiddenException();
         }
 
-        //TODO: falta chequear que no exista el usuario
-        userDao.create(user);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        boolean exist = userDao.userNameExist(user.getUserName());
+        if (exist){
+            return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
+        }
+        else{
+            userDao.create(user);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        }
+
 
     }
 

@@ -5,6 +5,7 @@ import sun.swing.StringUIClientPropertyKey;
 import ttps.spring.model.User;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -27,6 +28,14 @@ public class UserDAO extends DaoImplementation<User, Integer> {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public boolean userNameExist(String username) {
+
+        Query query = this.getEntityManager().createQuery("SELECT COUNT(userName) FROM User u WHERE u.userName = :user");
+        query.setParameter("user", username);
+        long count = (long) query.getSingleResult();
+        return (count > 0);
 
     }
 }

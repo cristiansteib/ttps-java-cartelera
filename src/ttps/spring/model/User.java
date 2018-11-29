@@ -5,12 +5,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="userName"))
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(unique=true)
     private String userName;
+
     private String name;
     private String lastName;
     private String password;
