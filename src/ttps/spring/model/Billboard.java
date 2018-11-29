@@ -20,7 +20,6 @@ public class Billboard implements Serializable {
     private String title;
     private String description;
     private Timestamp creationDate;
-    private Timestamp publishDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<User> managedBy;
@@ -51,14 +50,6 @@ public class Billboard implements Serializable {
 
     public void setPublications(Collection<Publication> publications) {
         this.publications = publications;
-    }
-
-    public Timestamp getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(Timestamp publishDate) {
-        this.publishDate = publishDate;
     }
 
     public Collection<User> getManagedBy() {
