@@ -36,4 +36,10 @@ public class UserController {
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
     }
 
+    @GetMapping("/usuarios/{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Integer id){
+        User user = userDao.getById(id);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
 }

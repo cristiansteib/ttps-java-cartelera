@@ -10,7 +10,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private String userName;
     private String name;
     private String lastName;
     private String password;
@@ -63,6 +63,14 @@ public class User implements Serializable {
 
     public void setNotification(Notification notification) {
         this.notification = notification;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 
