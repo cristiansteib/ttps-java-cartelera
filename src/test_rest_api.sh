@@ -25,7 +25,7 @@ function test {
     else
       echo -e "\e[1m\e[91m..FAIL\e[0m"
     fi
-    echo "URL Tested: ${endpoint}"
+    echo -e "\e[33m»»» URL Tested: ${endpoint}\e[0m"
      echo $OUT
      echo ""
 }
