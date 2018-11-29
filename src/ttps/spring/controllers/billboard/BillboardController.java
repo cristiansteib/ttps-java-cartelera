@@ -50,7 +50,6 @@ public class BillboardController {
          * Get the logged user, assume the session exist for the previous 'if'.
          * */
         User user = sessionDAO.getByToken(sessionToken).getUser();
-        System.out.println(user.getId());
 
         /*
          * Call the DAO for create the new billboard with the custom business rules.
