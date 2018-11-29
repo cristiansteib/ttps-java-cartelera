@@ -1,11 +1,14 @@
 package ttps.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@JsonIgnoreProperties(value= {"managedBy", "publications"})
 
 @Entity
 public class Billboard implements Serializable {
