@@ -46,4 +46,21 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @PostMapping("/usuarios/")
+    public ResponseEntity<User> addUser(
+            @RequestBody User user,
+            @RequestParam(value = "token") String sessionToken) {
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            System.out.println("invalid session token");
+            return new ResponseEntity<User>(user, HttpStatus.FORBIDDEN);
+        }
+        else{
+            //falta chequear que no exista el usuario
+            userDao.create(user);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        }
+
+    }
+
 }
