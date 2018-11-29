@@ -24,24 +24,19 @@ public class UserController {
             @RequestParam(value = "token") String sessionToken,
             @RequestBody User user) {
 
-        HttpStatus httpStatus = HttpStatus.OK;
-        User currentUser = null;
-
-        if (sessionDAO.isValidSession(sessionToken)) {
-            currentUser = userDao.getById(id);
-            currentUser.setName(user.getName());
-            System.out.println("actualizando");
-            userDao.update(currentUser);
-
-        } else {
-            httpStatus = HttpStatus.FORBIDDEN;
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
         }
 
-        return new ResponseEntity<User>(currentUser, httpStatus);
+        User currentUser = userDao.getById(id);
+        currentUser.setName(user.getName());
+        userDao.update(currentUser);
+
+        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
     }
 
     @GetMapping("/usuarios/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Integer id){
+    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         User user = userDao.getById(id);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
@@ -52,14 +47,13 @@ public class UserController {
             @RequestParam(value = "token") String sessionToken) {
 
         if (!sessionDAO.isValidSession(sessionToken)) {
-            System.out.println("invalid session token");
-            return new ResponseEntity<User>(user, HttpStatus.FORBIDDEN);
+            throw new ForbiddenException();
         }
-        else{
-            //falta chequear que no exista el usuario
-            userDao.create(user);
-            return new ResponseEntity<User>(user, HttpStatus.CREATED);
-        }
+
+        //TODO: falta chequear que no exista el usuario
+        userDao.create(user);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+
 
     }
 
