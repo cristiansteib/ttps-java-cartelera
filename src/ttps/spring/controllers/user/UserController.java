@@ -24,16 +24,20 @@ public class UserController {
             @RequestParam(value = "token") String sessionToken,
             @RequestBody User user) {
 
-        if (!sessionDAO.isValidSession(sessionToken)) {
-            System.out.println("invalid session token");
-            throw new ForbiddenException();
+        HttpStatus httpStatus = HttpStatus.OK;
+        User currentUser = null;
+
+        if (sessionDAO.isValidSession(sessionToken)) {
+            currentUser = userDao.getById(id);
+            currentUser.setName(user.getName());
+            System.out.println("actualizando");
+            userDao.update(currentUser);
+
+        } else {
+            httpStatus = HttpStatus.FORBIDDEN;
         }
 
-        User currentUser = userDao.getById(id);
-        currentUser.setName(user.getName());
-        System.out.println("actualizando");
-        userDao.update(currentUser);
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+        return new ResponseEntity<User>(currentUser, httpStatus);
     }
 
     @GetMapping("/usuarios/{id}")
