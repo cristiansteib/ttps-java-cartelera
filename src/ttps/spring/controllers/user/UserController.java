@@ -49,7 +49,12 @@ public class UserController {
     }
 
     @GetMapping("/usuarios/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") Integer id,
+        @RequestParam(value = "token") String sessionToken) {
+
+            if (!sessionDAO.isValidSession(sessionToken)) {
+                throw new ForbiddenException();
+            }
         User user = userDao.getById(id);
         if (user != null){
             return new ResponseEntity<User>(user,  HttpStatus.OK);
@@ -81,7 +86,12 @@ public class UserController {
     }
 
     @GetMapping("/usuarios")
-    public ResponseEntity<List<User>> listUsers() {
+    public ResponseEntity<List<User>> listUsers(
+        @RequestParam(value = "token") String sessionToken) {
+
+            if (!sessionDAO.isValidSession(sessionToken)) {
+                throw new ForbiddenException();
+            }
         List<User> users = userDao.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
