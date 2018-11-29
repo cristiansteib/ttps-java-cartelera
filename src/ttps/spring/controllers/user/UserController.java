@@ -9,6 +9,8 @@ import ttps.spring.dao.UserDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.User;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -29,19 +31,35 @@ public class UserController {
         }
 
         User currentUser = userDao.getById(id);
-        currentUser.setName(user.getName());
-        userDao.update(currentUser);
+        if (currentUser != null){
+            currentUser.setName(user.getName());
+            currentUser.setLastName(user.getLastName());
+            currentUser.setDNI(user.getDNI());
+            currentUser.setAdmin(user.getAdmin());
+            currentUser.setUserName(user.getUserName());
+            currentUser.setPassword(user.getPassword());
+            userDao.update(currentUser);
+            return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<User>(currentUser, HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+
     }
 
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         User user = userDao.getById(id);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        if (user != null){
+            return new ResponseEntity<User>(user,  HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<User>(user,  HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping("/usuarios/")
+    @PostMapping("/usuarios")
     public ResponseEntity<User> addUser(
             @RequestBody User user,
             @RequestParam(value = "token") String sessionToken) {
@@ -54,7 +72,12 @@ public class UserController {
         userDao.create(user);
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
 
+    }
 
+    @GetMapping("/usuarios")
+    public ResponseEntity<List<User>> listUsers() {
+        List<User> users = userDao.findAll();
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
 }
