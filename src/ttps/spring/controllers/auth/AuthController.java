@@ -18,19 +18,23 @@ public class AuthController {
 
     @PostMapping("/auth/login")
     public AuthResponse login(@RequestParam(value = "username") String username,
-                                 @RequestParam(value = "password") String password) {
-
+                              @RequestParam(value = "password") String password) {
 
         AuthResponse authResponse = new AuthResponse();
 
         /*
-         Login the user, if the credentials are valid
-        */
+         * Login a user if the credentials are valid.
+         * */
         User user = userDAO.login(username, password);
 
         if (user != null) {
+
+            /*
+             * Create a session instance, then save in the DB
+             * */
             Session session = sessionDAO.buildNewSession(user);
             sessionDAO.create(session);
+
             authResponse.setMsg("Successful logged.");
             authResponse.setStatus("ok");
             authResponse.setToken(session.getToken());
@@ -43,10 +47,16 @@ public class AuthController {
 
     @GetMapping("/auth/logout")
     public AuthResponse logout(@RequestParam(value = "token") String sessionToken) {
+
         sessionDAO.revoke(sessionToken);
+
+        /*
+        Always responds with OK, just for security reasons.
+         */
         AuthResponse authResponse = new AuthResponse();
         authResponse.setStatus("ok");
         authResponse.setMsg("Logged out.");
+
         return authResponse;
     }
 
