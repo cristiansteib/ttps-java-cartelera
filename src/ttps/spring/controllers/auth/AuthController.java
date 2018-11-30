@@ -16,6 +16,7 @@ public class AuthController {
     @Autowired
     private UserDAO userDAO;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/auth/login")
     public AuthResponse login(@RequestParam(value = "username") String username,
                               @RequestParam(value = "password") String password) {
@@ -46,6 +47,7 @@ public class AuthController {
         return authResponse;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/auth/logout")
     public AuthResponse logout(@RequestParam(value = "token") String sessionToken) {
 
