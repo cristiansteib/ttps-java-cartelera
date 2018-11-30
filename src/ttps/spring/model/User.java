@@ -29,7 +29,7 @@ public class User implements Serializable {
 
     public Integer getId() {   return id;    }
 
-    public Boolean getAdmin() { return isAdmin; }
+    public Boolean getAdmin() { return isAdmin != null ? isAdmin : false; }
 
     public void setAdmin(Boolean admin) { this.isAdmin = admin; }
 

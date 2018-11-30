@@ -49,5 +49,10 @@ public class SessionDAO extends DaoImplementation<Session, Integer> {
         }
         return false;
     }
+
+    public User getUserByToken(String sessionToken){
+        Session session = this.getByToken(sessionToken);
+        return session.getUser();
+    }
 }
 

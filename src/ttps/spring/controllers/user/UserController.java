@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.dao.UserDAO;
 import ttps.spring.errors.ForbiddenException;
+import ttps.spring.model.Session;
 import ttps.spring.model.User;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class UserController {
         }
 
         User currentUser = userDao.getById(id);
-        if (currentUser != null){
+        if (currentUser != null) {
             currentUser.setName(user.getName());
             currentUser.setLastName(user.getLastName());
             currentUser.setDNI(user.getDNI());
@@ -40,8 +41,7 @@ public class UserController {
             currentUser.setAdmin(user.getAdmin());
             userDao.update(currentUser);
             return new ResponseEntity<User>(currentUser, HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<User>(currentUser, HttpStatus.NOT_FOUND);
         }
 
@@ -50,19 +50,19 @@ public class UserController {
 
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Integer id,
-        @RequestParam(value = "token") String sessionToken) {
+                                        @RequestParam(value = "token") String sessionToken) {
 
-            if (!sessionDAO.isValidSession(sessionToken)) {
-                throw new ForbiddenException();
-            }
-        User user = userDao.getById(id);
-        if (user != null){
-            return new ResponseEntity<User>(user,  HttpStatus.OK);
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
         }
-        else{
-            return new ResponseEntity<User>(user,  HttpStatus.NOT_FOUND);
+        User user = userDao.retrieveUserOrForbidden(sessionDAO.getUserByToken(sessionToken), id);
+        if (user != null) {
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
         }
     }
+
 
     @PostMapping("/usuarios")
     public ResponseEntity<User> addUser(
@@ -74,10 +74,9 @@ public class UserController {
         }
 
         boolean exist = userDao.userNameExist(user.getUserName());
-        if (exist){
+        if (exist) {
             return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
-        }
-        else{
+        } else {
             userDao.create(user);
             return new ResponseEntity<User>(user, HttpStatus.CREATED);
         }
@@ -87,25 +86,24 @@ public class UserController {
 
     @GetMapping("/usuarios")
     public ResponseEntity<List<User>> listUsers(
-        @RequestParam(value = "token") String sessionToken) {
+            @RequestParam(value = "token") String sessionToken) {
 
-            if (!sessionDAO.isValidSession(sessionToken)) {
-                throw new ForbiddenException();
-            }
-        List<User> users = userDao.findAll();
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+        List<User> users = userDao.retrieveUsersOrForbidden(sessionDAO.getUserByToken(sessionToken));
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable("id") Integer id,
-            @RequestParam(value = "token") String sessionToken)
-    {
+            @RequestParam(value = "token") String sessionToken) {
         if (!sessionDAO.isValidSession(sessionToken)) {
             throw new ForbiddenException();
         }
         User currentUser = userDao.getById(id);
-        if (currentUser != null){
+        if (currentUser != null) {
             userDao.remove(currentUser);
             return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
         }

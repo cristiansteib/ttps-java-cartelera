@@ -2,6 +2,7 @@ package ttps.spring.dao;
 
 import org.springframework.stereotype.Repository;
 import sun.swing.StringUIClientPropertyKey;
+import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.User;
 
 import javax.persistence.NoResultException;
@@ -30,13 +31,30 @@ public class UserDAO extends DaoImplementation<User, Integer> {
         }
     }
 
+    public User retrieveUserOrForbidden(User who, Integer user_id){
+        if(who.getAdmin() || who.getId().equals(user_id)) {
+            return this.getById(user_id);
+        }else {
+            throw new ForbiddenException();
+        }
+
+
+    }
+
     public boolean userNameExist(String username) {
 
         Query query = this.getEntityManager().createQuery("SELECT COUNT(userName) FROM User u WHERE u.userName = :user");
         query.setParameter("user", username);
         long count = (long) query.getSingleResult();
         return (count > 0);
+    }
 
+    public List<User> retrieveUsersOrForbidden(User user) {
+        if(user.getAdmin()){
+            return this.findAll();
+        }else {
+            throw new ForbiddenException();
+        }
     }
 }
 
