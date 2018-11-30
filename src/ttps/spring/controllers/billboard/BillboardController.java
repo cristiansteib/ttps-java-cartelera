@@ -6,13 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.SessionDAO;
-import ttps.spring.dao.UserDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.Billboard;
-import ttps.spring.model.Session;
 import ttps.spring.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

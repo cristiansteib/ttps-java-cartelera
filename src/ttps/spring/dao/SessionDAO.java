@@ -5,7 +5,6 @@ import ttps.spring.model.Session;
 import ttps.spring.model.User;
 import ttps.spring.utils.RandomString;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;

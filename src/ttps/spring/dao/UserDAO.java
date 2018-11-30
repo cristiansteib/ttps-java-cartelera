@@ -1,7 +1,6 @@
 package ttps.spring.dao;
 
 import org.springframework.stereotype.Repository;
-import sun.swing.StringUIClientPropertyKey;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.User;
 
