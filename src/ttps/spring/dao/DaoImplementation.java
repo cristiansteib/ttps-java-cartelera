@@ -47,8 +47,7 @@ public abstract class DaoImplementation<T, ID> {
     }
 
     public T update(T entity) {
-        this.getEntityManager().merge(entity);
-        return entity;
+        return this.getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {

@@ -54,7 +54,7 @@ public class BillboardController {
         /*
          * Call the DAO for create the new billboard with the custom business rules.
          * */
-        this.billboardDAO.addNewBillboard(user, billboard);
+        billboard = this.billboardDAO.addNewBillboard(user, billboard);
 
         return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
     }

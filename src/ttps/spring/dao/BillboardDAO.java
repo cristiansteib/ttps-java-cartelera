@@ -11,14 +11,14 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
        setPersistentClass(Billboard.class);
    }
 
-    public void addNewBillboard(User user, Billboard billboard) {
+    public Billboard addNewBillboard(User user, Billboard billboard) {
 
        /*
        * Only admins can add a new Billboard
        * */
         if (user.getAdmin()){
             billboard.addManagedBy(user);
-            this.update(billboard);
+            return this.update(billboard);
         } else {
             throw new ForbiddenException();
         }
