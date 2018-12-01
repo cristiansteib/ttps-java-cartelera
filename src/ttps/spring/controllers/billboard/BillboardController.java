@@ -41,10 +41,6 @@ public class BillboardController {
             @RequestParam(value = "token") String sessionToken,
             @RequestBody Billboard billboard) {
 
-        if (!sessionDAO.isValidSession(sessionToken)) {
-            throw new ForbiddenException();
-        }
-
         /*
          * Get the logged user, assume the session exist for the previous 'if'.
          * */
