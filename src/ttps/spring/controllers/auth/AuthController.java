@@ -18,15 +18,15 @@ public class AuthController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/auth/login")
-    public AuthResponse login(@RequestParam(value = "username") String username,
-                              @RequestParam(value = "password") String password) {
+    public AuthResponse login(@RequestBody User userR) {
 
         AuthResponse authResponse = new AuthResponse();
 
         /*
          * Login a user if the credentials are valid.
          * */
-        User user = userDAO.login(username, password);
+        System.out.println(userR.getUsername());
+        User user = userDAO.login(userR.getUsername(), userR.getPassword());
 
         if (user != null) {
 

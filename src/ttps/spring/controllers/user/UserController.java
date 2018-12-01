@@ -35,7 +35,7 @@ public class UserController {
             currentUser.setName(user.getName());
             currentUser.setLastName(user.getLastName());
             currentUser.setDNI(user.getDNI());
-            currentUser.setUserName(user.getUserName());
+            currentUser.setUsername(user.getUsername());
             currentUser.setPassword(user.getPassword());
             currentUser.setAdmin(user.getAdmin());
             userDao.update(currentUser);
@@ -72,7 +72,7 @@ public class UserController {
             throw new ForbiddenException();
         }
 
-        boolean exist = userDao.userNameExist(user.getUserName());
+        boolean exist = userDao.userNameExist(user.getUsername());
         if (exist) {
             return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
         } else {
@@ -91,6 +91,7 @@ public class UserController {
             throw new ForbiddenException();
         }
         List<User> users = userDao.retrieveUsersOrForbidden(sessionDAO.getUserByToken(sessionToken));
+
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 

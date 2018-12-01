@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-@JsonIgnoreProperties(value= {"password"})
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames="userName"))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="username"))
 public class User implements Serializable {
 
     @Id
@@ -15,11 +14,11 @@ public class User implements Serializable {
     private Integer id;
 
     @Column(unique=true)
-    private String userName;
+    private String username;
+    private String password;
 
     private String name;
     private String lastName;
-    private String password;
     private String DNI;
 
     @OneToOne (cascade = CascadeType.PERSIST, optional = true)
@@ -71,12 +70,12 @@ public class User implements Serializable {
         this.notification = notification;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
