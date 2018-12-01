@@ -29,7 +29,7 @@ public class BillboardController {
     List<Billboard> showBillboards(@RequestParam(value = "token") String sessionToken) {
 
         if (!sessionDAO.isValidSession(sessionToken)) {
-            throw new ForbiddenException();
+            //se puede tomar el usuario para ordenar las carteleras
         }
 
         List<Billboard> billboardList = billboardDAO.findAll();
