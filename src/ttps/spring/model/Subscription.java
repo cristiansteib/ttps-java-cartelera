@@ -24,6 +24,10 @@ public class Subscription implements Serializable {
         return user;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

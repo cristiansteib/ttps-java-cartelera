@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.SessionDAO;
+import ttps.spring.dao.SubscriptionDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.Billboard;
 import ttps.spring.model.Publication;
+import ttps.spring.model.Subscription;
 import ttps.spring.model.User;
 
 import java.util.Collection;
@@ -23,6 +25,9 @@ public class BillboardController {
     @Autowired
     private SessionDAO sessionDAO;
 
+    @Autowired
+    private SubscriptionDAO susbcriptionDao;
+
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras")
     public @ResponseBody
@@ -35,6 +40,23 @@ public class BillboardController {
         List<Billboard> billboardList = billboardDAO.findAll();
 
         return billboardList;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("carteleras/suscprito/ids")
+    public @ResponseBody
+    List<Integer> getSuscribedBillboardsIds(@RequestParam(value = "token") String sessionToken) {
+        /*
+        * Resturn a Array of the Billboards id's
+        * */
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+
+        User user = sessionDAO.getByToken(sessionToken).getUser();
+        List<Integer> billboards = susbcriptionDao.susbribedBillboardsIds(user.getId());
+
+        return billboards;
     }
 
     @CrossOrigin(origins = "*")

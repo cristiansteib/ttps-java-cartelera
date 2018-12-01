@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     public BillboardDAO() {
         setPersistentClass(Billboard.class);
     }
+
+
 
     public Billboard addNewBillboard(User user, Billboard billboard) {
 
