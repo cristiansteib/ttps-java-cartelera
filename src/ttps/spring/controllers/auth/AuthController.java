@@ -26,6 +26,8 @@ public class AuthController {
          * Login a user if the credentials are valid.
          * */
         System.out.println(userR.getUsername());
+        System.out.println(userR.getPassword());
+
         User user = userDAO.login(userR.getUsername(), userR.getPassword());
 
         if (user != null) {

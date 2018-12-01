@@ -21,6 +21,7 @@ public class BillboardController {
     @Autowired
     private SessionDAO sessionDAO;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/carteleras")
     public @ResponseBody
     List<Billboard> showBillboards(@RequestParam(value = "token") String sessionToken) {
@@ -34,6 +35,7 @@ public class BillboardController {
         return billboardList;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/carteleras")
     public ResponseEntity<Billboard> create(
             @RequestParam(value = "token") String sessionToken,
