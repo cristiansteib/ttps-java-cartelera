@@ -1,6 +1,8 @@
 package ttps.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +26,8 @@ public class Billboard implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<User> managedBy;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private Collection<Publication> publications;
 
     public Billboard() {

@@ -8,8 +8,10 @@ import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.Billboard;
+import ttps.spring.model.Publication;
 import ttps.spring.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -54,4 +56,19 @@ public class BillboardController {
         return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/carteleras/{id}")
+    public @ResponseBody
+    ResponseEntity<Collection<Publication>> getPublications(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "token") String sessionToken) {
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+
+        Collection<Publication> publications = billboardDAO.getPublications(id);
+        return new ResponseEntity<Collection<Publication>>(publications, HttpStatus.OK);
+
+    }
 }

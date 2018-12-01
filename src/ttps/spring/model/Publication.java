@@ -1,5 +1,8 @@
 package ttps.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,6 +18,7 @@ public class Publication implements Serializable {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private User owner;
 
     private String title;
@@ -25,6 +29,7 @@ public class Publication implements Serializable {
     private boolean allowComments;
 
     @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Collection<Comment> comments;
 
     public Publication (){
