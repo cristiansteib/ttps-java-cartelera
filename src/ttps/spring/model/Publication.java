@@ -28,10 +28,14 @@ public class Publication implements Serializable {
     private String content;
     private boolean allowComments;
 
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Collection<Comment> comments;
 
+    public Integer getCountComments(){
+        return this.comments.size();
+    }
     public Publication (){
         this.comments = new ArrayList<Comment>();
     }
@@ -103,5 +107,9 @@ public class Publication implements Serializable {
     public void addComment(Comment comment) {
         System.out.println(this.comments);
         this.comments.add(comment);
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
