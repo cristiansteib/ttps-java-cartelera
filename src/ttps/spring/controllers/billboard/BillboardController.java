@@ -137,6 +137,7 @@ public class BillboardController {
 
     }
 
+
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras/{id}")
     public @ResponseBody
