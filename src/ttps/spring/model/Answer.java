@@ -37,13 +37,12 @@ public class Answer {
         this.creationDate = creationDate;
     }
 
-    public User getOwner() {
+    public User getUser() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setUser(User owner) {
         this.owner = owner;
     }
-
 
 }
