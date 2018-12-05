@@ -35,6 +35,7 @@ public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
     }
 
     public Subscription addSubscriber(Billboard billboard, User user, boolean facebook, boolean email, boolean sms) {
+
         Subscription suscription = new Subscription();
         suscription.setUser(user);
         suscription.setBillboard(billboard);
@@ -45,7 +46,13 @@ public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
     }
 
     public Subscription addSubscriber(Billboard billboard, User user) {
-        return this.addSubscriber(billboard, user, false, false, false);
+        if (billboard != null && user != null) {
+            Subscription subscription = this.getByUserIdAndBillboardId(user.getId(), billboard.getId());
+            if (subscription == null) {
+                return this.addSubscriber(billboard, user, false, false, false);
+            }
+        }
+        return null;
     }
 
     @Transactional

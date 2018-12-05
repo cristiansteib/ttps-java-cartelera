@@ -151,8 +151,12 @@ public class BillboardController {
             //
         }
 
-        Billboard billboard= billboardDAO.getById(id);
-        return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
+        Billboard billboard = billboardDAO.getById(id);
+        if (billboard != null) {
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.NOT_FOUND);
+        }
     }
 
 }
