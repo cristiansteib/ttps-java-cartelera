@@ -20,9 +20,11 @@ public class Comment implements Serializable {
     private Integer id;
     private String text;
     private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
+
     @ManyToOne
     private Publication publication;
 
+    @ManyToOne
     private User owner;
 
 
