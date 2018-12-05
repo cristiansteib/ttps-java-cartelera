@@ -36,6 +36,7 @@ public class Publication implements Serializable {
     public Integer getCountComments(){
         return this.comments.size();
     }
+
     public Publication (){
         this.comments = new ArrayList<Comment>();
     }
@@ -107,6 +108,10 @@ public class Publication implements Serializable {
     public void addComment(Comment comment) {
         System.out.println(this.comments);
         this.comments.add(comment);
+    }
+
+    public void removeComment(Comment comment){
+        this.comments.remove(comment);
     }
 
     public Integer getId() {

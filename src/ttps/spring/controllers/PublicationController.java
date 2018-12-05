@@ -1,17 +1,20 @@
 package ttps.spring.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.spring.dao.BillboardDAO;
+import ttps.spring.dao.PublicationDAO;
 import ttps.spring.dao.SessionDAO;
-import ttps.spring.dao.SubscriptionDAO;
 import ttps.spring.errors.ForbiddenException;
+import ttps.spring.model.Comment;
 import ttps.spring.model.Publication;
 
 import java.util.Collection;
 
+@RestController
 public class PublicationController {
     @Autowired
     private BillboardDAO billboardDAO;
@@ -20,7 +23,7 @@ public class PublicationController {
     private SessionDAO sessionDAO;
 
     @Autowired
-    private SubscriptionDAO susbcriptionDao;
+    private PublicationDAO publicationDAO;
 
     private void assertIfUserIsAnonymous(String token) {
         //  the code is clear
@@ -32,23 +35,22 @@ public class PublicationController {
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras/{id}/publicaciones/{id_pub}")
     public @ResponseBody
-    ResponseEntity<Collection<Publication>> getPublication(
+    ResponseEntity<Publication> getPublication(
             @PathVariable("id") Integer idBillboard,
             @PathVariable("id_pub") Integer idPublication,
             @RequestParam(value = "token") String sessionToken) {
 
         //TODO: retornar solo los datos de la publicacion.
-
         this.assertIfUserIsAnonymous(sessionToken);
-        Collection<Publication> publications = billboardDAO.getPublications(idBillboard);
-        return new ResponseEntity<Collection<Publication>>(publications, HttpStatus.OK);
-
+        Publication publication = publicationDAO.getById(idPublication);
+        return new ResponseEntity<Publication>(publication, HttpStatus.OK);
     }
+
 
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras/{id}/publicaciones/{id_pub}/comentarios")
     public @ResponseBody
-    ResponseEntity<Collection<Publication>> getPublicationCommentsWithResponses(
+    ResponseEntity<Collection<Comment>> getPublicationCommentsWithResponses(
             @PathVariable("id") Integer idBillboard,
             @PathVariable("id_pub") Integer idPublication,
             @RequestParam(value = "token") String sessionToken) {
@@ -56,8 +58,9 @@ public class PublicationController {
         //TODO: retornar los comentarios para la publicacion pasada por id, y retornar los commetarios con las respuestas
 
         this.assertIfUserIsAnonymous(sessionToken);
-        Collection<Publication> publications = billboardDAO.getPublications(idBillboard);
-        return new ResponseEntity<Collection<Publication>>(publications, HttpStatus.OK);
+        Collection<Comment> comments = publicationDAO.getCommentForPublication(idPublication);
+        System.out.println("los comentarios "+comments);
+        return new ResponseEntity<Collection<Comment>>(comments, HttpStatus.OK);
 
     }
 }

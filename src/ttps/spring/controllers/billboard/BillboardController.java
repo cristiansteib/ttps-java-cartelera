@@ -111,6 +111,9 @@ public class BillboardController {
         /*
          * Get the logged user, assume the session exist for the previous 'if'.
          * */
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
         User user = sessionDAO.getByToken(sessionToken).getUser();
 
         /*
