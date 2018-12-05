@@ -22,6 +22,7 @@ public class Publication implements Serializable {
     private User owner;
 
     private String title;
+    private String description;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private Timestamp publishDate;
@@ -116,5 +117,13 @@ public class Publication implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
