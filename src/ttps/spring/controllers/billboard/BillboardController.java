@@ -28,11 +28,54 @@ public class BillboardController {
     @Autowired
     private SubscriptionDAO susbcriptionDao;
 
+    private void assertIfUserIsAnonymous(String token) {
+        //  the code is clear
+        if (!sessionDAO.isValidSession(token)) {
+            throw new ForbiddenException();
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("carteleras/suscribir/{id}")
+    public @ResponseBody
+    List<Integer> suscribeToBillboard(
+            @RequestParam(value = "token") String sessionToken,
+            @PathVariable("id") Integer id) {
+        /*
+         * Resturn a Array of the Billboards id's
+         * */
+
+        this.assertIfUserIsAnonymous(sessionToken);
+        User user = sessionDAO.getByToken(sessionToken).getUser();
+        Billboard billboard = billboardDAO.getById(id);
+        susbcriptionDao.addSubscriber(billboard, user);
+        List<Integer> billboards = susbcriptionDao.susbribedBillboardsIds(user.getId());
+        return billboards;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("carteleras/desuscribir/{id}")
+    public @ResponseBody
+    List<Integer> desuscribeToBillboard(
+            @RequestParam(value = "token") String sessionToken,
+            @PathVariable("id") Integer id) {
+        /*
+         * Resturn a Array of the Billboards id's
+         * */
+
+        this.assertIfUserIsAnonymous(sessionToken);
+        User user = sessionDAO.getByToken(sessionToken).getUser();
+        Billboard billboard = billboardDAO.getById(id);
+        susbcriptionDao.removeSubscriber(billboard, user);
+        List<Integer> billboards = susbcriptionDao.susbribedBillboardsIds(user.getId());
+        return billboards;
+    }
+
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras")
     public @ResponseBody
     List<Billboard> showBillboards(@RequestParam(value = "token") String sessionToken) {
-
+        //TODO; ORDENAR LA RESPUESTA
         if (!sessionDAO.isValidSession(sessionToken)) {
             //se puede tomar el usuario para ordenar las carteleras
         }
@@ -47,8 +90,8 @@ public class BillboardController {
     public @ResponseBody
     List<Integer> getSuscribedBillboardsIds(@RequestParam(value = "token") String sessionToken) {
         /*
-        * Resturn a Array of the Billboards id's
-        * */
+         * Resturn a Array of the Billboards id's
+         * */
         if (!sessionDAO.isValidSession(sessionToken)) {
             throw new ForbiddenException();
         }
@@ -79,7 +122,7 @@ public class BillboardController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/carteleras/{id}")
+    @GetMapping("/carteleras/{id}/publicaciones")
     public @ResponseBody
     ResponseEntity<Collection<Publication>> getPublications(
             @PathVariable("id") Integer id,
@@ -93,4 +136,27 @@ public class BillboardController {
         return new ResponseEntity<Collection<Publication>>(publications, HttpStatus.OK);
 
     }
+
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/carteleras/{id}")
+    public @ResponseBody
+    ResponseEntity<Billboard> getBillboardData(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "token") String sessionToken) {
+
+        // este medoto lo uso para cuando un usuario entra a una cartelera en particular.
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            //
+        }
+
+        Billboard billboard = billboardDAO.getById(id);
+        if (billboard != null) {
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
