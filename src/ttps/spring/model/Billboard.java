@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonIgnoreProperties(value= {"managedBy", "publications"})
 
@@ -28,18 +30,18 @@ public class Billboard implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
-    private Collection<Publication> publications;
-
-    public Billboard() {
-        this.managedBy = new ArrayList<User>();
-        this.publications = new ArrayList<Publication>();
-    }
+    private Set<Publication> publications;
 
     public Integer getId() {
         return this.id;
     }
 
-    public Collection<Publication> getPublications() {
+    public Billboard() {
+        this.managedBy = new HashSet<User>();
+        this.publications = new HashSet<Publication>();
+    }
+
+    public Set<Publication> getPublications() {
         return publications;
     }
 
@@ -49,10 +51,6 @@ public class Billboard implements Serializable {
 
     public void removePublication(Publication publication) {
         this.publications.remove(publication);
-    }
-
-    public void setPublications(Collection<Publication> publications) {
-        this.publications = publications;
     }
 
     public Collection<User> getManagedBy() {

@@ -15,7 +15,7 @@ public class Answer {
     private String answer;
     private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Comment comment;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -23,15 +23,6 @@ public class Answer {
 
     public String getAnswer() {
         return answer;
-    }
-
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
     }
 
     public void setAnswer(String answer) {
