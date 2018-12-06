@@ -68,7 +68,20 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     }
 
     //public Collection<User> listSuscriptors () {    }
-    // public static Collection<User> listSuscriptorsFor(Billboard billboard) {   }
+
+    public List<User> listSuscriptorsFor(Billboard billboard) {
+        String queryString = "SELECT s FROM Subscription s  WHERE s.billboard_id = :bid";
+        TypedQuery<Subscription> query = getEntityManager().createQuery(queryString, Subscription.class);
+        query.setParameter("bid", billboard.getId());
+        List<Subscription> subscriptions = query.getResultList();
+        List <User> result_list = new ArrayList<User>();
+        for (int i = 0; i < subscriptions.size(); ++i) {
+            result_list.add(subscriptions.get(i).getUser());
+        }
+        return (result_list);
+    }
+
+
     public void allowEditionTo(User user) {
     }
     //public Collection<Billboard> getNotYetPublished() {    }

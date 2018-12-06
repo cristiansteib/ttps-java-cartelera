@@ -1,4 +1,4 @@
-package ttps.spring.controllers;
+package ttps.spring.controllers.Publication;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ttps.spring.controllers.Views;
 import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.PublicationDAO;
 import ttps.spring.dao.SessionDAO;

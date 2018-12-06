@@ -77,15 +77,21 @@ public class BillboardController {
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras")
     public @ResponseBody
-    List<Billboard> showBillboards(@RequestParam(value = "token") String sessionToken) {
+    List<Billboard> showBillboards(
+            @RequestParam(value = "token",defaultValue = "noToken") String sessionToken) {
 
-        if (!sessionDAO.isValidSession(sessionToken)) {
-            //se puede tomar el usuario para ordenar las carteleras
+        if (sessionDAO.isValidSession(sessionToken)) {
+            User user = sessionDAO.getUserByToken(sessionToken);
+            List<Billboard> billboardList = billboardDAO.getSortedBySuscription(user.getId());
+            return billboardList;
         }
-        User user = sessionDAO.getUserByToken(sessionToken);
-        List<Billboard> billboardList = billboardDAO.getSortedBySuscription(user.getId());
+        else {
+            List<Billboard> billboardList = billboardDAO.findAll();
+            return billboardList;
+        }
 
-        return billboardList;
+
+
     }
 
     @CrossOrigin(origins = "*")
