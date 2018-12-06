@@ -1,6 +1,7 @@
 package ttps.spring.controllers;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,7 @@ public class PublicationController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/carteleras/{idBill}/publicaciones")
+    @JsonView(Views.Summary.class)
     public ResponseEntity<Publication> create(
             @RequestParam(value = "token") String sessionToken,
             @PathVariable("idBill") Integer billboardId,
@@ -79,7 +81,7 @@ public class PublicationController {
         User user = sessionDAO.getUserByToken(sessionToken);
         publication.setOwner(user);
         if (billboardDAO.addPublication(billboardDAO.getById(billboardId),publication, user)){
-            return new ResponseEntity<Publication>(HttpStatus.CREATED);
+            return new ResponseEntity<Publication>(publication,HttpStatus.CREATED);
         }
         else{
             return new ResponseEntity<Publication>(HttpStatus.ACCEPTED);
