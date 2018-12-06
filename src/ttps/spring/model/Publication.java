@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -29,7 +30,7 @@ public class Publication implements Serializable {
     @JsonView(Views.Summary.class)
     private String description;
     @JsonView(Views.Summary.class)
-    private Timestamp creationDate;
+    private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
     @JsonView(Views.Public.class)
     private Timestamp updateDate;
     @JsonView(Views.Public.class)
