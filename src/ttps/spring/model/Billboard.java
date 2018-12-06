@@ -84,4 +84,5 @@ public class Billboard implements Serializable {
     public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
+
 }

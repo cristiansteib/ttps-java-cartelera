@@ -36,14 +36,16 @@ public class Publication implements Serializable {
     private Timestamp publishDate;
     @JsonView(Views.Summary.class)
     private String content;
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Summary.class)
     private boolean allowComments;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Summary.class)
     @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Collection<Comment> comments;
 
+
+    @JsonView(Views.Summary.class)
     public Integer getCountComments(){
         return this.comments.size();
     }

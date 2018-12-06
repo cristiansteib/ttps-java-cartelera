@@ -82,7 +82,8 @@ public class BillboardController {
             //se puede tomar el usuario para ordenar las carteleras
         }
 
-        List<Billboard> billboardList = billboardDAO.findAll();
+        //List<Billboard> billboardList = billboardDAO.findAll();
+        List<Billboard> billboardList = billboardDAO.getSortedBySuscription(sessionDAO.getUserByToken(sessionToken).getId());
 
         return billboardList;
     }
