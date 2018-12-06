@@ -78,7 +78,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     public List<Billboard> getSortedBySuscription(Integer userId){
         try {
             String queryString = "SELECT b.id, b.creationDate, b.description, b.title FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id ORDER BY s.user_id = :user_id DESC ";
-            Query query = getEntityManager().createNativeQuery(queryString);
+            Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
             query.setParameter("user_id", userId);
             List<Billboard> result = query.getResultList();
             return (result);
