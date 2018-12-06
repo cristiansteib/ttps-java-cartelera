@@ -1,0 +1,31 @@
+POST	/auth/login
+GET	    /auth/logout
+	
+GET	    /carteleras/suscribir/{id}
+GET	    /carteleras/desuscribir/{id}
+GET	    /carteleras
+GET	    /carteleras/suscprito/ids
+POST	/carteleras
+GET	    /carteleras/{id}
+GET	    /carteleras/{id}/publicaciones
+	
+PUT	    /usuarios/{id}
+DELETE	/usuarios/{id}
+GET	    /usuarios
+GET	    /usuarios/{id}
+POST	/usuarios
+		
+GET	    /carteleras/{id_bill}/publicaciones/{id_pub}
+GET	    /carteleras/{id_bill}/publicaciones/{id_pub}/comentarios
+POST	/carteleras/{id_bill}/publicaciones
+		
+
+
+
+
+
+agregar
+	
+PUT	    /carteleras/{id}/publicaciones/{id_pub}
+DELETE	/carteleras/{id}/publicaciones/{id_pub}
+
