@@ -1,5 +1,8 @@
 package ttps.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import ttps.spring.controllers.Views;
+
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
@@ -7,18 +10,23 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Summary.class)
     private Integer id;
-
+    @JsonView(Views.Public.class)
     private String username;
+    @JsonView(Views.Public.class)
     private String password;
-
+    @JsonView(Views.Public.class)
     private String name;
+    @JsonView(Views.Public.class)
     private String lastName;
+    @JsonView(Views.Public.class)
     private String DNI;
 
     @OneToOne (cascade = CascadeType.PERSIST, optional = true)
     private Notification notification;
 
+    @JsonView(Views.Public.class)
     private Boolean isAdmin = false;
 
     public Integer getId() {   return id;    }

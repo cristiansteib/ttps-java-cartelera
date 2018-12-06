@@ -1,9 +1,11 @@
 package ttps.spring.controllers.billboard;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ttps.spring.controllers.Views;
 import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.dao.SubscriptionDAO;
@@ -126,6 +128,7 @@ public class BillboardController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/carteleras/{id}/publicaciones")
+    @JsonView(Views.Summary.class)
     public @ResponseBody
     ResponseEntity<Collection<Publication>> getPublications(
             @PathVariable("id") Integer id,

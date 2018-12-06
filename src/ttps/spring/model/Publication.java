@@ -3,6 +3,8 @@ package ttps.spring.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import ttps.spring.controllers.Views;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,21 +18,28 @@ public class Publication implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Summary.class)
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonView(Views.Summary.class)
     private User owner;
-
+    @JsonView(Views.Summary.class)
     private String title;
+    @JsonView(Views.Summary.class)
     private String description;
+    @JsonView(Views.Summary.class)
     private Timestamp creationDate;
+    @JsonView(Views.Public.class)
     private Timestamp updateDate;
+    @JsonView(Views.Public.class)
     private Timestamp publishDate;
+    @JsonView(Views.Summary.class)
     private String content;
+    @JsonView(Views.Public.class)
     private boolean allowComments;
 
-
+    @JsonView(Views.Public.class)
     @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Collection<Comment> comments;
