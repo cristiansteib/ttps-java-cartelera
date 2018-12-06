@@ -9,9 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
@@ -77,11 +75,13 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
 
     public List<Billboard> getSortedBySuscription(Integer userId){
         try {
-            String queryString = "SELECT b.id, b.creationDate, b.description, b.title FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id ORDER BY s.user_id = :user_id DESC ";
+            String queryString = "SELECT DISTINCT b.id, b.creationDate, b.description, b.title " +
+                    "FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id " +
+                    "ORDER BY s.user_id = :user_id DESC ";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
             query.setParameter("user_id", userId);
             List<Billboard> result = query.getResultList();
-            return (result);
+            return result;
         } catch (NoResultException e) {
             return null;
         }

@@ -17,6 +17,7 @@ import ttps.spring.model.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class BillboardController {
@@ -77,13 +78,12 @@ public class BillboardController {
     @GetMapping("/carteleras")
     public @ResponseBody
     List<Billboard> showBillboards(@RequestParam(value = "token") String sessionToken) {
-        //TODO; ORDENAR LA RESPUESTA
+
         if (!sessionDAO.isValidSession(sessionToken)) {
             //se puede tomar el usuario para ordenar las carteleras
         }
-
-        //List<Billboard> billboardList = billboardDAO.findAll();
-        List<Billboard> billboardList = billboardDAO.getSortedBySuscription(sessionDAO.getUserByToken(sessionToken).getId());
+        User user = sessionDAO.getUserByToken(sessionToken);
+        List<Billboard> billboardList = billboardDAO.getSortedBySuscription(user.getId());
 
         return billboardList;
     }
