@@ -11,6 +11,7 @@ import ttps.spring.dao.SessionDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.Comment;
 import ttps.spring.model.Publication;
+import ttps.spring.model.User;
 
 import java.util.Collection;
 
@@ -62,5 +63,26 @@ public class PublicationController {
         System.out.println("los comentarios "+comments);
         return new ResponseEntity<Collection<Comment>>(comments, HttpStatus.OK);
 
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/carteleras/{idBill}/publicaciones")
+    public ResponseEntity<Publication> create(
+            @RequestParam(value = "token") String sessionToken,
+            @PathVariable("idBill") Integer billboardId,
+            @RequestBody Publication publication) {
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+
+        User user = sessionDAO.getUserByToken(sessionToken);
+        publication.setOwner(user);
+        if (billboardDAO.addPublication(billboardDAO.getById(billboardId),publication, user)){
+            return new ResponseEntity<Publication>(HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<Publication>(HttpStatus.ACCEPTED);
+        }
     }
 }

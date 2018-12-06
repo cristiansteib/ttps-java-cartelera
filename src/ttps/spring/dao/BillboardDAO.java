@@ -47,7 +47,6 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
             this.update(billboard);
             return true;
         }
-        ;
         return false;
     }
 

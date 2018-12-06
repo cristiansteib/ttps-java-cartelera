@@ -1,6 +1,7 @@
 package ttps.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Publication implements Serializable {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private User owner;
 
     private String title;

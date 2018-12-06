@@ -25,7 +25,7 @@ public class Billboard implements Serializable {
     private String description;
     private Timestamp creationDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<User> managedBy;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
