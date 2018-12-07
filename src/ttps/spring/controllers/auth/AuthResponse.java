@@ -5,6 +5,15 @@ public class AuthResponse {
     private String msg;
     private Integer userId;
     private String status;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getToken() {
         return token;

@@ -42,6 +42,7 @@ public class AuthController {
             authResponse.setStatus("ok");
             authResponse.setToken(session.getToken());
             authResponse.setUserId(session.getUser().getId());
+            authResponse.setUsername(session.getUser().getUsername());
         } else {
             authResponse.setMsg("Invalid credentials.");
             authResponse.setStatus("error");
