@@ -70,8 +70,8 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     //public Collection<User> listSuscriptors () {    }
 
     public List<User> listSuscriptorsFor(Billboard billboard) {
-        String queryString = "SELECT s FROM Subscription s  WHERE s.billboard_id = :bid";
-        TypedQuery<Subscription> query = getEntityManager().createQuery(queryString, Subscription.class);
+        String queryString = "SELECT s.id, s.email, s.facebook, s.sms, s.user_id, s.billboard_id FROM Subscription s WHERE s.billboard_id = :bid";
+        Query query = getEntityManager().createNativeQuery(queryString, Subscription.class);
         query.setParameter("bid", billboard.getId());
         List<Subscription> subscriptions = query.getResultList();
         List <User> result_list = new ArrayList<User>();
