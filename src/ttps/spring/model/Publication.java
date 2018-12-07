@@ -19,6 +19,7 @@ public class Publication implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Summary.class)
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
