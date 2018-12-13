@@ -3,6 +3,9 @@ package ttps.spring.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ser.VirtualBeanPropertyWriter;
+import ttps.spring.controllers.Views;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,18 +22,36 @@ public class Billboard implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Summary.class)
     private Integer id;
-
+    @JsonView(Views.Summary.class)
     private String title;
+    @JsonView(Views.Summary.class)
     private String description;
+    @JsonView(Views.Summary.class)
     private Timestamp creationDate;
-
+    @Transient
+    @JsonView(Views.Summary.class)
+    private Boolean edition;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<User> managedBy;
+    private Set<User> managedBy;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Publication> publications;
+
+    @JsonView(Views.Summary.class)
+    public Boolean getEdition(){
+        return this.edition;
+    }
+
+    public void setEdition(boolean edition){
+        this.edition = edition;
+    }
+    @JsonView(Views.Summary.class)
+    public Integer getPubCount(){
+        return publications.size();
+    }
 
     public Integer getId() {
         return this.id;
@@ -53,7 +74,7 @@ public class Billboard implements Serializable {
         this.publications.remove(publication);
     }
 
-    public Collection<User> getManagedBy() {
+    public Set<User> getManagedBy() {
         return this.managedBy;
     }
 

@@ -12,12 +12,9 @@ import ttps.spring.dao.SubscriptionDAO;
 import ttps.spring.errors.ForbiddenException;
 import ttps.spring.model.Billboard;
 import ttps.spring.model.Publication;
-import ttps.spring.model.Subscription;
 import ttps.spring.model.User;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class BillboardController {
@@ -75,21 +72,20 @@ public class BillboardController {
     }
 
     @CrossOrigin(origins = "*")
+    @JsonView(Views.Summary.class)
     @GetMapping("/carteleras")
     public @ResponseBody
-    List<Billboard> showBillboards(
-            @RequestParam(value = "token",defaultValue = "noToken") String sessionToken) {
+    Collection<Billboard> showBillboards(
+            @RequestParam(value = "token", defaultValue = "noToken") String sessionToken) {
 
         if (sessionDAO.isValidSession(sessionToken)) {
             User user = sessionDAO.getUserByToken(sessionToken);
-            List<Billboard> billboardList = billboardDAO.getSortedBySuscription(user.getId());
+            Collection<Billboard> billboardList = billboardDAO.getSortedBySuscription(user);
+            return billboardList;
+        } else {
+            Collection<Billboard> billboardList = billboardDAO.findAll();
             return billboardList;
         }
-        else {
-            List<Billboard> billboardList = billboardDAO.findAll();
-            return billboardList;
-        }
-
 
 
     }

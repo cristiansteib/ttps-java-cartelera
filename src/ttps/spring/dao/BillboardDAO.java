@@ -4,11 +4,8 @@ import ttps.spring.errors.ForbiddenException;
 import ttps.spring.errors.NotFoundException;
 import ttps.spring.model.*;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.sql.Array;
 import java.util.*;
 
 @Repository
@@ -35,9 +32,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         }
     }
 
-    private static boolean canModify(Billboard billboard, User who) {
-        return (billboard.getManagedBy().contains(who) || who.getAdmin());
-    }
+
 
     public boolean addPublication(Billboard billboard, Publication publication, User who) {
         if (canModify(billboard, who)) {
@@ -81,23 +76,30 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         return (result_list);
     }
 
-
-    public void allowEditionTo(User user) {
+    private static boolean canModify(Billboard billboard, User who) {
+        return (billboard.getManagedBy().contains(who) || who.getAdmin());
     }
-    //public Collection<Billboard> getNotYetPublished() {    }
 
-    public List<Billboard> getSortedBySuscription(Integer userId){
+
+    public Set<Billboard> getSortedBySuscription(User user){
         try {
             String queryString = "SELECT DISTINCT s.user_id, b.id, b.creationDate, b.description, b.title " +
                     "FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id " +
                     "ORDER BY s.user_id = :user_id DESC ";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
-            query.setParameter("user_id", userId);
+            query.setParameter("user_id", user.getId());
             List<Billboard> result = query.getResultList();
-            return result;
+            //convert to set to avoid duplicates
+            Set<Billboard> res = new HashSet<>(result);
+            for (Billboard b : res) {
+                b.setEdition(canModify(b,user));
+            }
+            return res;
         } catch (NoResultException e) {
             return null;
         }
     }
+
+
 
 }

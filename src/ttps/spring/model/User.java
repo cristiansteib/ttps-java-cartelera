@@ -81,6 +81,16 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    @Override
+    public boolean equals (Object o){
+        User user = (User) o;
+        return (user.getId().equals(this.getId()));
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
+    }
 
 
 }
