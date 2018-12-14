@@ -168,4 +168,27 @@ public class BillboardController {
         }
     }
 
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/carteleras/{id}")
+    public @ResponseBody
+    ResponseEntity<Billboard> Billboard(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "token") String sessionToken) {
+
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+
+        Billboard billboard = billboardDAO.getById(id);
+        User user = sessionDAO.getUserByToken(sessionToken);
+
+        if (user.getAdmin()) {
+            billboardDAO.remove(billboard);
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Billboard>(billboard, HttpStatus.NOT_FOUND);
+        }
+    }
 }

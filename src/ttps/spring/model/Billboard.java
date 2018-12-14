@@ -32,7 +32,7 @@ public class Billboard implements Serializable {
     private Timestamp creationDate;
     @Transient
     @JsonView(Views.Summary.class)
-    private Boolean edition;
+    private Boolean allowEdit;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> managedBy;
 
@@ -41,12 +41,12 @@ public class Billboard implements Serializable {
     private Set<Publication> publications;
 
     @JsonView(Views.Summary.class)
-    public Boolean getEdition(){
-        return this.edition;
+    public Boolean getAllowEdit(){
+        return this.allowEdit;
     }
 
-    public void setEdition(boolean edition){
-        this.edition = edition;
+    public void setAllowEdit(boolean allowEdit){
+        this.allowEdit = allowEdit;
     }
     @JsonView(Views.Summary.class)
     public Integer getPubCount(){

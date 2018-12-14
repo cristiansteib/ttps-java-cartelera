@@ -33,7 +33,7 @@ public class Publication implements Serializable {
     private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
     @JsonView(Views.Public.class)
     private Timestamp updateDate;
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Summary.class)
     private Timestamp publishDate;
     @JsonView(Views.Summary.class)
     private String content;

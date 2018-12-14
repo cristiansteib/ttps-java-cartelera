@@ -80,26 +80,48 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         return (billboard.getManagedBy().contains(who) || who.getAdmin());
     }
 
+    private static void setEdition(List<Billboard> listB, User user){
+        for (Billboard b : listB) {
+            b.setAllowEdit(canModify(b,user));
+        }
+    }
 
-    public Set<Billboard> getSortedBySuscription(User user){
+    public List<Billboard> getSortedBySuscription(User user){
         try {
-            String queryString = "SELECT DISTINCT s.user_id, b.id, b.creationDate, b.description, b.title " +
+            String queryString = "SELECT DISTINCT b.id, b.creationDate, b.description, b.title " +
                     "FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id " +
                     "ORDER BY s.user_id = :user_id DESC ";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
             query.setParameter("user_id", user.getId());
             List<Billboard> result = query.getResultList();
-            //convert to set to avoid duplicates
-            Set<Billboard> res = new HashSet<>(result);
-            for (Billboard b : res) {
-                b.setEdition(canModify(b,user));
-            }
-            return res;
+            setEdition(result,user);
+            return result;
         } catch (NoResultException e) {
             return null;
         }
     }
 
+    public List<Billboard> getSortedByEditPermission(User user){
+        try {
+            String queryString = "SELECT DISTINCT b.id, b.creationDate, b.description, b.title " +
+                    "FROM Billboard b LEFT JOIN Billboard_User bu ON b.id = bu.Billboard_id ORDER BY bu.managedBy_id = :user_id DESC";
+            Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
+            query.setParameter("user_id", user.getId());
+            List<Billboard> result = query.getResultList();
+            setEdition(result,user);
+            return result;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
+    public List<Billboard> getBillboardsSorted(User user){
+        if(user.getAdmin()){
+            return getSortedByEditPermission(user);
+        }
+        else {
+            return getSortedBySuscription(user);
+        }
+    }
 
 }

@@ -15,7 +15,9 @@ import ttps.spring.model.Comment;
 import ttps.spring.model.Publication;
 import ttps.spring.model.User;
 
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 @RestController
 public class PublicationController {
@@ -86,6 +88,34 @@ public class PublicationController {
         }
         else{
             return new ResponseEntity<Publication>(HttpStatus.ACCEPTED);
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/publicaciones/{idPub}")
+    @JsonView(Views.Summary.class)
+    public ResponseEntity<Publication> update(
+            @RequestParam(value = "token") String sessionToken,
+            @PathVariable("idPub") Integer publicationId,
+            @RequestBody Publication publication) {
+
+        if (!sessionDAO.isValidSession(sessionToken)) {
+            throw new ForbiddenException();
+        }
+
+        Publication currentPub = publicationDAO.getById(publicationId);
+        if (currentPub!= null) {
+            currentPub.setContent(publication.getContent());
+            currentPub.setTitle(publication.getTitle());
+            currentPub.setDescription(publication.getDescription());
+            currentPub.setAllowComments(publication.isAllowComments());
+            currentPub.setPublishDate(publication.getPublishDate());
+            currentPub.setUpdateDate(new Timestamp((new Date()).getTime()));
+            currentPub.setOwner(publication.getOwner());
+            publicationDAO.update(currentPub);
+            return new ResponseEntity<Publication>(currentPub, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<Publication>(currentPub,HttpStatus.NOT_FOUND);
         }
     }
 }
