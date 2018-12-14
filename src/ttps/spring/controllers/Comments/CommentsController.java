@@ -45,10 +45,8 @@ public class CommentsController {
 
         User user = sessionDAO.getUserByToken(sessionToken);
         comment.setUser(user);
-        Publication pub = publicationDAO.getById(publicationId);
-        pub.addComment(comment);
+        publicationDAO.addComment(comment, publicationId);
         return new ResponseEntity<Comment>(comment, HttpStatus.CREATED);
-
     }
 /*
     @CrossOrigin(origins = "*")

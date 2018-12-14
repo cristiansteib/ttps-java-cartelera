@@ -17,6 +17,7 @@ public class PublicationDAO extends DaoImplementation<Publication, Integer>{
     public void addComment(Comment comment, Integer pub_id){
         Publication publication = this.getById(pub_id);
         publication.addComment(comment);
+        this.update(publication); // faltaba este update, pero no anda
     }
 
     public void removeComment(Comment comment, Integer pub_id){
