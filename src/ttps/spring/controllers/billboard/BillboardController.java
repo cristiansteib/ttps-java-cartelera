@@ -148,6 +148,7 @@ public class BillboardController {
 
 
     @CrossOrigin(origins = "*")
+    @JsonView(Views.Summary.class)
     @GetMapping("/carteleras/{id}")
     public @ResponseBody
     ResponseEntity<Billboard> getBillboardData(
@@ -159,8 +160,11 @@ public class BillboardController {
         if (!sessionDAO.isValidSession(sessionToken)) {
             //
         }
+        User user = sessionDAO.getUserByToken(sessionToken);
 
         Billboard billboard = billboardDAO.getById(id);
+        billboardDAO.setEdition(billboard,user);
+
         if (billboard != null) {
             return new ResponseEntity<Billboard>(billboard, HttpStatus.OK);
         } else {

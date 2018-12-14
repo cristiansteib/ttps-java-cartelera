@@ -77,7 +77,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     }
 
     private static boolean canModify(Billboard billboard, User who) {
-        return (billboard.getManagedBy().contains(who) || who.getAdmin());
+        return (who.getAdmin() || billboard.getManagedBy().contains(who));
     }
 
     private static void setEdition(List<Billboard> listB, User user){
@@ -86,9 +86,13 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         }
     }
 
+    public void setEdition(Billboard billboard, User user){
+        billboard.setAllowEdit(canModify(billboard, user));
+    }
+
     public List<Billboard> getSortedBySuscription(User user){
         try {
-            String queryString = "SELECT DISTINCT b.id, b.creationDate, b.description, b.title " +
+            String queryString = "SELECT DISTINCT s.user_id, b.id, b.creationDate, b.description, b.title " +
                     "FROM Billboard b LEFT JOIN Subscription s ON s.billboard_id = b.id " +
                     "ORDER BY s.user_id = :user_id DESC ";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
