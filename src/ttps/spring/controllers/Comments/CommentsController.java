@@ -44,7 +44,10 @@ public class CommentsController {
         }
         User user = sessionDAO.getUserByToken(sessionToken);
         comment.setUser(user);
-        publicationDAO.addComment(comment, publicationId);
-        return new ResponseEntity<Comment>(comment, HttpStatus.CREATED);
+        if (publicationDAO.addComment(comment, publicationId)) {
+            return new ResponseEntity<Comment>(comment, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<Comment>(HttpStatus.FORBIDDEN);
+        }
     }
 }

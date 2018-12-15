@@ -15,10 +15,15 @@ public class PublicationDAO extends DaoImplementation<Publication, Integer>{
         setPersistentClass(Publication.class);
     }
 
-    public void addComment(Comment comment, Integer pub_id){
+    public boolean addComment(Comment comment, Integer pub_id){
         Publication publication = this.getById(pub_id);
-        publication.addComment(comment);
-        this.update(publication);
+        if (publication.isAllowComments()) {
+            publication.addComment(comment);
+            this.update(publication);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void removeComment(Comment comment, Integer pub_id){
