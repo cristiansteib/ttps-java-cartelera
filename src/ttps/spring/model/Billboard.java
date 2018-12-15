@@ -10,10 +10,7 @@ import ttps.spring.controllers.Views;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @JsonIgnoreProperties(value= {"managedBy", "publications"})
 
@@ -29,7 +26,7 @@ public class Billboard implements Serializable {
     @JsonView(Views.Summary.class)
     private String description;
     @JsonView(Views.Summary.class)
-    private Timestamp creationDate;
+    private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
     @Transient
     @JsonView(Views.Summary.class)
     private Boolean allowEdit;

@@ -41,8 +41,7 @@ public class Publication implements Serializable {
     private boolean allowComments;
 
     @JsonView(Views.Summary.class)
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Comment> comments;
 
 

@@ -4,6 +4,7 @@ import ttps.spring.model.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PublicationDAO extends DaoImplementation<Publication, Integer>{
     public void addComment(Comment comment, Integer pub_id){
         Publication publication = this.getById(pub_id);
         publication.addComment(comment);
-        this.update(publication); // faltaba este update, pero no anda
+        this.update(publication);
     }
 
     public void removeComment(Comment comment, Integer pub_id){
@@ -27,8 +28,8 @@ public class PublicationDAO extends DaoImplementation<Publication, Integer>{
 
     public List<Comment> getCommentForPublication(Integer pub_id){
         try {
-            String queryString = "SELECT c FROM Comment c WHERE publication_id = :pubId";
-            TypedQuery<Comment> query = getEntityManager().createQuery(queryString, Comment.class);
+            String queryString = "SELECT x.id, x.creationDate, x.owner_id, x.text FROM Comment as x INNER JOIN Publication_Comment pc ON x.id = pc.comments_id WHERE pc.Publication_id = :pubId";
+            Query query = getEntityManager().createNativeQuery(queryString, Comment.class);
             query.setParameter("pubId", pub_id);
             List<Comment> result = query.getResultList();
             return (result);

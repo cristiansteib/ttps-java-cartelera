@@ -11,6 +11,7 @@ import ttps.spring.dao.BillboardDAO;
 import ttps.spring.dao.PublicationDAO;
 import ttps.spring.dao.SessionDAO;
 import ttps.spring.errors.ForbiddenException;
+import ttps.spring.model.Billboard;
 import ttps.spring.model.Comment;
 import ttps.spring.model.Publication;
 import ttps.spring.model.User;
@@ -83,11 +84,16 @@ public class PublicationController {
 
         User user = sessionDAO.getUserByToken(sessionToken);
         publication.setOwner(user);
-        if (billboardDAO.addPublication(billboardDAO.getById(billboardId),publication, user)){
-            return new ResponseEntity<Publication>(publication,HttpStatus.CREATED);
+        Billboard billboard = billboardDAO.getById(billboardId);
+        if (billboard != null) {
+            if (billboardDAO.addPublication(billboard, publication, user)){
+                return new ResponseEntity<Publication>(publication, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<Publication>(HttpStatus.FORBIDDEN);
+            }
         }
         else{
-            return new ResponseEntity<Publication>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<Publication>(HttpStatus.NOT_FOUND);
         }
     }
 

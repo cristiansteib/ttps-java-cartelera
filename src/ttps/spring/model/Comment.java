@@ -22,11 +22,7 @@ public class Comment implements Serializable {
     private Timestamp creationDate = (new Timestamp((new Date()).getTime()));
 
     @ManyToOne
-    private Publication publication;
-
-    @ManyToOne
     private User owner;
-
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Answer> answers;
