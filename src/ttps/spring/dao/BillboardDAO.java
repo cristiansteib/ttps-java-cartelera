@@ -103,15 +103,15 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
                     "  from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id left join Subscription s on s.billboard_id = b.id" +
                     " group by b.id ";//order by bu.managedBy_id = :user_id DESC, s.user_id = :user_id DESC";*/
 
-            String queryString = "SELECT  b.id, b.creationDate, b.title, b.description " +
+            String queryString = "SELECT  b.id, b.creationDate, b.title, b.description, b.deleted " +
                     "from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id " +
                     "where bu.managedBy_id = :user_id " + // primero las que puedo modificar
                     "UNION (" +
-                    "SELECT  b.id, b.creationDate, b.title, b.description " + // Las que estoy suscripto
+                    "SELECT  b.id, b.creationDate, b.title, b.description, b.deleted " + // Las que estoy suscripto
                     "from Billboard b left join Subscription s on s.billboard_id = b.id " +
                     "WHERE s.user_id = :user_id)" +
                     "UNION (" +
-                    "SELECT  b.id, b.creationDate, b.title, b.description " +
+                    "SELECT  b.id, b.creationDate, b.title, b.description , b.deleted " +
                     "FROM Billboard b);";
 
             Query query = getEntityManager().createNativeQuery(queryString, Billboard.class);
