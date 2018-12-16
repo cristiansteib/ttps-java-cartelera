@@ -124,5 +124,9 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         }
     }
 
+    public void delete(Billboard billboard){
+        billboard.setDeleted(true);
+        this.update(billboard);
+    }
 
 }
