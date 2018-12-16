@@ -93,7 +93,12 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
 
     public List<Billboard> getSortedBillboards(User user){
         try {
-            String queryString = "select b.id, b.creationDate, b.title, b.description, bu.managedBy_id, s.user_id  from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id left join Subscription s on s.billboard_id = b.id group by b.id order by bu.managedBy_id = :user_id DESC, s.user_id = :user_id DESC";
+            String queryString =
+                    "select b.id, b.creationDate, b.title, b.description, bu.managedBy_id, s.user_id, b.deleted  " +
+                    "from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id " +
+                    "left join Subscription s on s.billboard_id = b.id where b.deleted=false " +
+                    "group by b.id " +
+                    "order by bu.managedBy_id = :user_id DESC, s.user_id = :user_id DESC";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
             query.setParameter("user_id", user.getId());
             List<Billboard> result = query.getResultList();
@@ -104,6 +109,10 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         }
     }
 
+    public void delete(Billboard billboard){
+        billboard.setDeleted(true);
+        this.update(billboard);
+    }
 
 
 }
