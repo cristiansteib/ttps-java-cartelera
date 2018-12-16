@@ -80,7 +80,7 @@ public class BillboardController {
 
         if (sessionDAO.isValidSession(sessionToken)) {
             User user = sessionDAO.getUserByToken(sessionToken);
-            Collection<Billboard> billboardList = billboardDAO.getSortedBySuscription(user);
+            Collection<Billboard> billboardList = billboardDAO.getSortedBillboards(user);
             return billboardList;
         } else {
             Collection<Billboard> billboardList = billboardDAO.findAll();
