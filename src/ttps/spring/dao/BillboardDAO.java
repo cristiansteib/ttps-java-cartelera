@@ -4,6 +4,7 @@ import ttps.spring.errors.ForbiddenException;
 import ttps.spring.errors.NotFoundException;
 import ttps.spring.model.*;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.*;
@@ -14,7 +15,6 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     public BillboardDAO() {
         setPersistentClass(Billboard.class);
     }
-
 
 
     public Billboard addNewBillboard(User user, Billboard billboard) {
@@ -31,7 +31,6 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
             throw new ForbiddenException();
         }
     }
-
 
 
     public boolean addPublication(Billboard billboard, Publication publication, User who) {
@@ -69,7 +68,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         Query query = getEntityManager().createNativeQuery(queryString, Subscription.class);
         query.setParameter("bid", billboard.getId());
         List<Subscription> subscriptions = query.getResultList();
-        List <User> result_list = new ArrayList<User>();
+        List<User> result_list = new ArrayList<User>();
         for (int i = 0; i < subscriptions.size(); ++i) {
             result_list.add(subscriptions.get(i).getUser());
         }
@@ -80,30 +79,49 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
         return (who.getAdmin() || billboard.getManagedBy().contains(who));
     }
 
-    private static void setEdition(List<Billboard> listB, User user){
+    private static void setEdition(List<Billboard> listB, User user) {
         for (Billboard b : listB) {
-            b.setAllowEdit(canModify(b,user));
+            b.setAllowEdit(canModify(b, user));
         }
     }
 
-    public void setEdition(Billboard billboard, User user){
+    public void setEdition(Billboard billboard, User user) {
         billboard.setAllowEdit(canModify(billboard, user));
     }
 
 
-    public List<Billboard> getSortedBillboards(User user){
+    public List<Billboard> getSortedBillboards(User user) {
         try {
-            String queryString = "select b.id, b.creationDate, b.title, b.description, bu.managedBy_id, s.user_id  from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id left join Subscription s on s.billboard_id = b.id group by b.id order by bu.managedBy_id = :user_id DESC, s.user_id = :user_id DESC";
-            Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
+
+            // carteleras que puedo modificar
+            // cartelera que estoy suscripto
+            // carteleras que estoy suscripto y ordenadas por fecha de ultima publicacion
+
+           /* String queryString = "" +
+                    "select b.id, b.creationDate, b.title, b.description, bu.managedBy_id, s.user_id" +
+                    "  from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id left join Subscription s on s.billboard_id = b.id" +
+                    " group by b.id ";//order by bu.managedBy_id = :user_id DESC, s.user_id = :user_id DESC";*/
+
+            String queryString = "SELECT  b.id, b.creationDate, b.title, b.description " +
+                    "from Billboard b left join Billboard_User bu on b.id = bu.Billboard_id " +
+                    "where bu.managedBy_id = :user_id " + // primero las que puedo modificar
+                    "UNION (" +
+                    "SELECT  b.id, b.creationDate, b.title, b.description " + // Las que estoy suscripto
+                    "from Billboard b left join Subscription s on s.billboard_id = b.id " +
+                    "WHERE s.user_id = :user_id)" +
+                    "UNION (" +
+                    "SELECT  b.id, b.creationDate, b.title, b.description " +
+                    "FROM Billboard b);";
+
+            Query query = getEntityManager().createNativeQuery(queryString, Billboard.class);
             query.setParameter("user_id", user.getId());
             List<Billboard> result = query.getResultList();
-            setEdition(result,user);
+            setEdition(result, user);
             return result;
         } catch (NoResultException e) {
             return null;
         }
     }
-
 
 
 }
