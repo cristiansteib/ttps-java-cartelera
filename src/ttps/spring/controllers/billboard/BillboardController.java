@@ -83,7 +83,7 @@ public class BillboardController {
             Collection<Billboard> billboardList = billboardDAO.getSortedBillboards(user);
             return billboardList;
         } else {
-            Collection<Billboard> billboardList = billboardDAO.findAll();
+            Collection<Billboard> billboardList = billboardDAO.findAllNotDeleted();
             return billboardList;
         }
 

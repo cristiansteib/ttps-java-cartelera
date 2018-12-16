@@ -41,6 +41,13 @@ public abstract class DaoImplementation<T, ID> {
         ).getResultList();
     }
 
+    public List<T> findAllNotDeleted() {
+        return this.getEntityManager().createQuery(
+                "SELECT e " +
+                        "FROM " + this.getPersistentClass().getName() + " e WHERE e.deleted = false OR e.deleted = NULL"
+        ).getResultList();
+    }
+
     public void create(T entity) {
         this.getEntityManager().persist(entity);
     }
