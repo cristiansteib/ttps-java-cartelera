@@ -91,7 +91,7 @@ public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
 
     public List<Billboard> suscribedBillboards(User user) {
         try {
-            String queryString = "SELECT b.id, b.creationDate, SUBSTRING(b.title,1,15) as title, b.description FROM Billboard b INNER JOIN Subscription s on s.billboard_id = b.id WHERE s.user_id = :user_id";
+            String queryString = "SELECT b.id, b.creationDate, SUBSTRING(b.title,1,15) as title, b.description, b.deleted FROM Billboard b INNER JOIN Subscription s on s.billboard_id = b.id WHERE s.user_id = :user_id";
             Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
             query.setParameter("user_id", user.getId());
             List<Billboard> result = query.getResultList();
