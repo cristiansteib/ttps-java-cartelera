@@ -48,6 +48,7 @@ public class UserController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Integer id,
                                         @RequestParam(value = "token") String sessionToken) {
@@ -63,7 +64,7 @@ public class UserController {
         }
     }
 
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/usuarios")
     public ResponseEntity<User> addUser(
             @RequestBody User user,
@@ -84,6 +85,7 @@ public class UserController {
 
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/usuarios")
     public ResponseEntity<List<User>> listUsers(
             @RequestParam(value = "token") String sessionToken) {
@@ -96,6 +98,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable("id") Integer id,
