@@ -6,6 +6,7 @@ import ttps.spring.model.Session;
 import ttps.spring.model.Subscription;
 import ttps.spring.model.User;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -85,6 +86,18 @@ public class SubscriptionDAO extends DaoImplementation<Subscription, Integer> {
         } catch (Exception e) {
             System.out.println("exploto " + e.toString());
             return false;
+        }
+    }
+
+    public List<Billboard> suscribedBillboards(User user) {
+        try {
+            String queryString = "SELECT b.id, b.creationDate, SUBSTRING(b.title,1,15) as title, b.description FROM Billboard b INNER JOIN Subscription s on s.billboard_id = b.id WHERE s.user_id = :user_id";
+            Query query = getEntityManager().createNativeQuery(queryString,Billboard.class);
+            query.setParameter("user_id", user.getId());
+            List<Billboard> result = query.getResultList();
+            return result;
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }
