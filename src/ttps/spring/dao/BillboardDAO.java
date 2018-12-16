@@ -4,7 +4,6 @@ import ttps.spring.errors.ForbiddenException;
 import ttps.spring.errors.NotFoundException;
 import ttps.spring.model.*;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.*;
@@ -15,6 +14,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
     public BillboardDAO() {
         setPersistentClass(Billboard.class);
     }
+
 
 
     public Billboard addNewBillboard(User user, Billboard billboard) {
@@ -31,6 +31,7 @@ public class BillboardDAO extends DaoImplementation<Billboard, Integer> {
             throw new ForbiddenException();
         }
     }
+
 
 
     public boolean addPublication(Billboard billboard, Publication publication, User who) {

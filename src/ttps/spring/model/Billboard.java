@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ser.VirtualBeanPropertyWriter;
+import org.hibernate.annotations.ColumnDefault;
 import ttps.spring.controllers.Views;
 
 import javax.persistence.*;
@@ -32,6 +33,8 @@ public class Billboard implements Serializable {
     private Boolean allowEdit;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> managedBy;
+    @Column(columnDefinition="BOOLEAN DEFAULT false")
+    private boolean deleted;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
@@ -103,4 +106,11 @@ public class Billboard implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

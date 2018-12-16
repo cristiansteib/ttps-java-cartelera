@@ -26,7 +26,6 @@ public class User implements Serializable {
     @OneToOne (cascade = CascadeType.PERSIST, optional = true)
     private Notification notification;
 
-    @JsonView(Views.Public.class)
     private Boolean isAdmin = false;
 
     public Integer getId() {   return id;    }
