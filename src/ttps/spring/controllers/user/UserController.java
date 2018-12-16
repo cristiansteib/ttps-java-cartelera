@@ -20,6 +20,7 @@ public class UserController {
     @Autowired
     private SessionDAO sessionDAO;
 
+    @CrossOrigin(origins = "*")
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable("id") Integer id,
